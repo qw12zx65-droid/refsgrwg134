@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Steam игры — копировать только название или только цену</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            background: #0b0f1a;
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            margin: 0;
+            padding: 20px;
+            color: #eef2ff;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin: 0 0 0.3rem 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .sub {
+            color: #9aa4bf;
+            margin-bottom: 28px;
+            border-left: 3px solid #f5a623;
+            padding-left: 16px;
+            font-size: 0.95rem;
+        }
+        .toolbar {
+            background: #141a2c;
+            padding: 12px 20px;
+            border-radius: 28px;
+            margin-bottom: 28px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            backdrop-filter: blur(4px);
+            border: 1px solid #2a334a;
+        }
+        .search-box {
+            flex: 2;
+            min-width: 200px;
+            display: flex;
+            align-items: center;
+            background: #0f1422;
+            border-radius: 40px;
+            padding: 5px 16px;
+            border: 1px solid #2f3b5c;
+        }
+        .search-box input {
+            background: transparent;
+            border: none;
+            padding: 12px 8px;
+            width: 100%;
+            color: white;
+            font-size: 0.95rem;
+            outline: none;
+        }
+        .search-box input::placeholder {
+            color: #6a7290;
+        }
+        .stats {
+            background: #0f1422;
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            color: #b9c3e6;
+        }
+        .copy-all-btn {
+            background: #2a3a5e;
+            border: none;
+            color: white;
+            padding: 8px 22px;
+            border-radius: 40px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #1f2b46;
+            border: 1px solid #3f4d72;
+        }
+        .copy-all-btn:hover {
+            background: #2e3f66;
+            border-color: #6c7eb0;
+            transform: scale(0.98);
+        }
+        .games-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .game-row {
+            background: #111622;
+            border-radius: 18px;
+            padding: 10px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            transition: 0.1s ease;
+            border: 1px solid #1e253c;
+        }
+        .game-row:hover {
+            background: #161e30;
+            border-color: #3b4870;
+        }
+        .game-info {
+            flex: 8;
+            min-width: 220px;
+            font-size: 0.9rem;
+            word-break: break-word;
+            line-height: 1.4;
+        }
+        .game-title {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-weight: 500;
+            letter-spacing: 0.2px;
+            color: #e3e9ff;
+        }
+        .game-price {
+            display: inline-block;
+            background: #1a2138;
+            margin-left: 12px;
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #f5b042;
+            font-family: monospace;
+        }
+        .button-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .copy-title-btn, .copy-price-btn {
+            background: #1e2a44;
+            border: none;
+            color: #cddcff;
+            padding: 8px 18px;
+            border-radius: 40px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.15s;
+            font-size: 0.75rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+            font-family: inherit;
+            border: 1px solid #2f3c62;
+        }
+        .copy-price-btn {
+            background: #2a1f3a;
+            border-color: #6a4e8c;
+            color: #e2c4ff;
+        }
+        .copy-title-btn:hover {
+            background: #2d3e66;
+            color: white;
+            border-color: #6c86b5;
+        }
+        .copy-price-btn:hover {
+            background: #3e2a5a;
+            border-color: #b07ce0;
+            color: white;
+        }
+        .copy-title-btn:active, .copy-price-btn:active {
+            transform: scale(0.96);
+        }
+        .toast-msg {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1f2a44e6;
+            backdrop-filter: blur(12px);
+            color: #ffde9c;
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border: 1px solid #ffcd7e;
+            z-index: 999;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            font-family: monospace;
+            white-space: nowrap;
+        }
+        @media (max-width: 650px) {
+            body {
+                padding: 12px;
+            }
+            .game-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .button-group {
+                justify-content: center;
+            }
+            .copy-title-btn, .copy-price-btn {
+                justify-content: center;
+                flex: 1;
+            }
+            .toast-msg {
+                white-space: normal;
+                text-align: center;
+                max-width: 85vw;
+            }
+        }
+        button {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>
+        🎮 Steam подарки (Казахстан)
+        <span style="font-size: 0.8rem; background: #1e253f; padding: 4px 12px; border-radius: 40px;">📋 название отдельно, цена отдельно</span>
+    </h1>
+    <div class="sub">
+        🟧🟨 Кнопка «Копировать название» — только полное название (со всеми 🟧🟨).<br>
+        🟧🟨 Кнопка «Копировать цену» — только цифры.
+    </div>
+
+    <div class="toolbar">
+        <div class="search-box">
+            <span>🔍</span>
+            <input type="text" id="searchInput" placeholder="Поиск по названию игры...">
+        </div>
+        <div class="stats" id="statsCounter">🎮 загрузка...</div>
+        <button class="copy-all-btn" id="copyAllTitlesBtn">📋 Копировать все названия</button>
+        <button class="copy-all-btn" id="copyAllPricesBtn">💰 Копировать все цены</button>
+    </div>
+
+    <div id="gamesList" class="games-grid">
+        <div style="text-align:center; padding:40px;">⏳ Загрузка списка...</div>
+    </div>
+    <footer>⬤ «Копировать все названия» — скопирует только названия (каждое с новой строки).<br>⬤ «Копировать все цены» — все числа с новой строки.</footer>
+</div>
+
+<div id="toast" class="toast-msg" style="opacity:0; visibility:hidden;">Скопировано</div>
+
+<script>
+    // ---------- ПОЛНЫЙ JSON С ИГРАМИ ----------
+    const gamesData = [
+  {
+    "sourceTitle": "🟧🟨【7 DAYS TO DIE】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "2390"
+  },
+  {
+    "sourceTitle": "🟧🟨【ARK: SURVIVAL EVOLVED】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "687"
+  },
+  {
+    "sourceTitle": "🟧🟨【AMONG US】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "240"
+  },
+  {
+    "sourceTitle": "🟧🟨【ASSASSIN'S CREED IV BLACK FLAG】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "2263"
+  },
+  {
+    "sourceTitle": "🟧🟨【ASSASSIN'S CREED III REMASTERED】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "2263"
+  },
+  {
+    "sourceTitle": "🟧🟨【ASSASSIN'S CREED II】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "641"
+  },
+  {
+    "sourceTitle": "🟧🟨【ASSASSIN'S CREED SYNDICATE】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "2263"
+  },
+  {
+    "sourceTitle": "🟧🟨【ASSASSIN'S CREED UNITY】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "1822"
+  },
+  {
+    "sourceTitle": "🟧🟨【ASSASSIN'S CREED ROGUE】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "1481"
+  },
+  {
+    "sourceTitle": "🟧🟨【ASSASSIN'S CREED ORIGINS】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "3345"
+  },
+  {
+    "sourceTitle": "🟧🟨【ASSASSIN'S CREED VALHALLA】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "3345"
+  },
+  {
+    "sourceTitle": "🟧🟨【ASSASSIN'S CREED ODYSSEY】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "3345"
+  },
+  {
+    "sourceTitle": "🟧🟨【ASSETTO CORSA】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "1536"
+  },
+  {
+    "sourceTitle": "🟧🟨【BACK 4 BLOOD】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "2769"
+  },
+  {
+    "sourceTitle": "🟧🟨【BEAMNG.DRIVE】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "1499"
+  },
+  {
+    "sourceTitle": "🟧🟨【BIOMUTANT】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "1986"
+  },
+  {
+    "sourceTitle": "🟧🟨【BORDERLANDS 3】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "4320"
+  },
+  {
+    "sourceTitle": "🟧🟨【CALL OF DUTY: MODERN WARFARE 3 (2023)】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "260"
+  },
+  {
+    "sourceTitle": "🟧🟨【CALL OF DUTY 4: MODERN WARFARE】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "2300"
+  },
+  {
+    "sourceTitle": "🟧🟨【CALL OF DUTY: WORLD AT WAR】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "2300"
+  },
+  {
+    "sourceTitle": "🟧🟨【CALL OF DUTY: WWII】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "6305"
+  },
+  {
+    "sourceTitle": "🟧🟨【CALL OF DUTY: GHOSTS】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "6305"
+  },
+  {
+    "sourceTitle": "🟧🟨【CALL OF DUTY: BLACK OPS 2】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "6305"
+  },
+  {
+    "sourceTitle": "🟧🟨【CALL OF DUTY: ADVANCED WARFARE】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "6305"
+  },
+  {
+    "sourceTitle": "🟧🟨【CALL OF DUTY 2】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "2300"
+  },
+  {
+    "sourceTitle": "🟧🟨【CALL OF DUTY: MODERN WARFARE 3 (2011)】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "4503"
+  },
+  {
+    "sourceTitle": "🟧🟨【CALL OF DUTY: BLACK OPS】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "4503"
+  },
+  {
+    "sourceTitle": "🟧🟨【CALL OF DUTY: MODERN WARFARE 2 (2009)】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "2300"
+  },
+  {
+    "sourceTitle": "🟧🟨【CARX DRIFT RACING ONLINE】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "938"
+  },
+  {
+    "sourceTitle": "🟧🟨【CHIVALRY 2】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "1446"
+  },
+  {
+    "sourceTitle": "🟧🟨【CONAN EXILES】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "1770"
+  },
+  {
+    "sourceTitle": "🟧🟨【DEUS EX: GAME OF THE YEAR EDITION】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "578"
+  },
+  {
+    "sourceTitle": "🟧🟨【DON'T STARVE TOGETHER】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "632"
+  },
+  {
+    "sourceTitle": "🟧🟨【DOOM】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "1806"
+  },
+  {
+    "sourceTitle": "🟧🟨【DOOM ETERNAL】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "2299"
+  },
+  {
+    "sourceTitle": "🟧🟨【DYING LIGHT】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "323"
+  },
+  {
+    "sourceTitle": "🟧🟨【THE ELDER SCROLLS V: SKYRIM SPECIAL EDITION】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "2299"
+  },
+  {
+    "sourceTitle": "🟧🟨【THE ELDER SCROLLS IV: OBLIVION GAME OF THE YEAR EDITION】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "1507"
+  },
+  {
+    "sourceTitle": "🟧🟨【FALLOUT 4】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "1860"
+  },
+  {
+    "sourceTitle": "🟧🟨【FAR CRY 5】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "3345"
+  },
+  {
+    "sourceTitle": "🟧🟨【FAR CRY 3: BLOOD DRAGON】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "861"
+  },
+  {
+    "sourceTitle": "🟧🟨【FAR CRY NEW DAWN】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "2479"
+  },
+  {
+    "sourceTitle": "🟧🟨【FAR CRY 3】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "1481"
+  },
+  {
+    "sourceTitle": "🟧🟨【FAR CRY 4】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "1822"
+  },
+  {
+    "sourceTitle": "🟧🟨【FAR CRY 6】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "3345"
+  },
+  {
+    "sourceTitle": "🟧🟨【FARMING SIMULATOR 19】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "943"
+  },
+  {
+    "sourceTitle": "🟧🟨【FARMING SIMULATOR 17】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "509"
+  },
+  {
+    "sourceTitle": "🟧🟨【FOR HONOR】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "4499"
+  },
+  {
+    "sourceTitle": "🟧🟨【GARRY'S MOD】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "605"
+  },
+  {
+    "sourceTitle": "🟧🟨【HEARTS OF IRON IV】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "4518"
+  },
+  {
+    "sourceTitle": "🟧🟨【LEFT 4 DEAD 2】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "722"
+  },
+  {
+    "sourceTitle": "🟧🟨【LETHAL COMPANY】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "722"
+  },
+  {
+    "sourceTitle": "🟧🟨【MAFIA: DEFINITIVE EDITION】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "3039"
+  },
+  {
+    "sourceTitle": "🟧🟨【MAFIA II: DEFINITIVE EDITION】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "2227"
+  },
+  {
+    "sourceTitle": "🟧🟨【MONSTER HUNTER: WORLD】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "710"
+  },
+  {
+    "sourceTitle": "🟧🟨【MORTAL KOMBAT X】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "1806"
+  },
+  {
+    "sourceTitle": "🟧🟨【NO MAN'S SKY】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "1608"
+  },
+  {
+    "sourceTitle": "🟧🟨【PHASMOPHOBIA】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "1590"
+  },
+  {
+    "sourceTitle": "🟧🟨【PROJECT ZOMBOID】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "1536"
+  },
+  {
+    "sourceTitle": "🟧🟨【RESIDENT EVIL VILLAGE】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "854"
+  },
+  {
+    "sourceTitle": "🟧🟨【RESIDENT EVIL 2】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "854"
+  },
+  {
+    "sourceTitle": "🟧🟨【RESIDENT EVIL 3】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "361"
+  },
+  {
+    "sourceTitle": "🟧🟨【RIMWORLD】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "2084"
+  },
+  {
+    "sourceTitle": "🟧🟨【SCUM】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "1607"
+  },
+  {
+    "sourceTitle": "🟧🟨【SPORE】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "677"
+  },
+  {
+    "sourceTitle": "🟧🟨【STAR WARS JEDI: FALLEN ORDER】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "3490"
+  },
+  {
+    "sourceTitle": "🟧🟨【STARDEW VALLEY】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "632"
+  },
+  {
+    "sourceTitle": "🟧🟨【ASTRONEER】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "1868"
+  },
+  {
+    "sourceTitle": "🟧🟨【TERRARIA】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "722"
+  },
+  {
+    "sourceTitle": "🟧🟨【TEKKEN 7】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "928"
+  },
+  {
+    "sourceTitle": "🟧🟨【TOTAL WAR: ATTILA】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "2480"
+  },
+  {
+    "sourceTitle": "🟧🟨【TOTAL WAR: ROME II】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "3328"
+  },
+  {
+    "sourceTitle": "🟧🟨【TOTAL WAR: WARHAMMER II】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "3328"
+  },
+  {
+    "sourceTitle": "🟧🟨【WATCH DOGS】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "1849"
+  },
+  {
+    "sourceTitle": "🟧🟨【WATCH DOGS 2】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "3345"
+  },
+  {
+    "sourceTitle": "🟧🟨【WATCH DOGS: LEGION】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "3345"
+  },
+  {
+    "sourceTitle": "🟧🟨【VALHEIM】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "1814"
+  },
+  {
+    "sourceTitle": "🟧🟨【WORLD WAR Z】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "1938"
+  },
+  {
+    "sourceTitle": "🟧🟨【THE WITCHER 3: WILD HUNT】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "2859"
+  },
+  {
+    "sourceTitle": "🟧🟨【HALF-LIFE 2: DEATHMATCH】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "1536"
+  },
+  {
+    "sourceTitle": "🟧🟨【SCRAP MECHANIC】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "1629"
+  },
+  {
+    "sourceTitle": "🟧🟨【LEFT 4 DEAD】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "722"
+  },
+  {
+    "sourceTitle": "🟧🟨【COUNTER-STRIKE: SOURCE】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "722"
+  },
+  {
+    "sourceTitle": "🟧🟨【BLOONS TD 6】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "605"
+  },
+  {
+    "sourceTitle": "🟧🟨【CUPHEAD】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "677"
+  },
+  {
+    "sourceTitle": "🟧🟨【HOLLOW KNIGHT】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "938"
+  },
+  {
+    "sourceTitle": "🟧🟨【BLACK MESA】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "1536"
+  },
+  {
+    "sourceTitle": "🟧🟨【CONTENT WARNING】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "596"
+  },
+  {
+    "sourceTitle": "🟧🟨【ANNO 1800】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "3345"
+  },
+  {
+    "sourceTitle": "🟧🟨【POSTAL 2】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "722"
+  },
+  {
+    "sourceTitle": "🟧🟨【AMERICAN TRUCK SIMULATOR】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "1673"
+  },
+  {
+    "sourceTitle": "🟧🟨【BORDERLANDS 2】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "677"
+  },
+  {
+    "sourceTitle": "🟧🟨【HALF-LIFE: ALYX】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "3220"
+  },
+  {
+    "sourceTitle": "🟧🟨【PORTAL 2】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "722"
+  },
+  {
+    "sourceTitle": "🟧🟨【COUNTER-STRIKE】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "533"
+  },
+  {
+    "sourceTitle": "🟧🟨【SLIME RANCHER】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "1410"
+  },
+  {
+    "sourceTitle": "🟧🟨【BIOSHOCK INFINITE】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "275"
+  },
+  {
+    "sourceTitle": "🟧🟨【TOMB RAIDER GAME OF THE YEAR】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "262"
+  },
+  {
+    "sourceTitle": "🟧🟨【METRO 2033 REDUX】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "1550"
+  },
+  {
+    "sourceTitle": "🟧🟨【STRAY】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "1463"
+  },
+  {
+    "sourceTitle": "🟧🟨【METRO EXODUS】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "2480"
+  },
+  {
+    "sourceTitle": "🟧🟨【THE BINDING OF ISAAC: REBIRTH】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "632"
+  },
+  {
+    "sourceTitle": "🟧🟨【WOLFENSTEIN: THE NEW ORDER】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "1807"
+  },
+  {
+    "sourceTitle": "🟧🟨【SUBNAUTICA】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "639"
+  },
+  {
+    "sourceTitle": "🟧🟨【SUPER MEAT BOY】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "134"
+  },
+  {
+    "sourceTitle": "🟧🟨【BAROTRAUMA】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "911"
+  },
+  {
+    "sourceTitle": "🟧🟨【HALF-LIFE 2】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "722"
+  },
+  {
+    "sourceTitle": "🟧🟨【FALLOUT: NEW VEGAS】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "804"
+  },
+  {
+    "sourceTitle": "🟧🟨【UNDERTALE】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "533"
+  },
+  {
+    "sourceTitle": "🟧🟨【PORTAL】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "722"
+  },
+  {
+    "sourceTitle": "🟧🟨【GEOMETRY DASH】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "370"
+  },
+  {
+    "sourceTitle": "🟧🟨【RED DEAD REDEMPTION 2】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "1849"
+  },
+  {
+    "sourceTitle": "🟧🟨【GRAND THEFT AUTO V ENHANCED】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "1849"
+  },
+  {
+    "sourceTitle": "🟧🟨【DEAD BY DAYLIGHT】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "1711"
+  },
+  {
+    "sourceTitle": "🟧🟨【RUST】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "2390"
+  },
+  {
+    "sourceTitle": "🟧🟨【MONSTER HUNTER WILDS】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "3254"
+  },
+  {
+    "sourceTitle": "🟧🟨【HELLDIVERS 2】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "3914"
+  },
+  {
+    "sourceTitle": "🟧🟨【FARMING SIMULATOR 25】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "2716"
+  },
+  {
+    "sourceTitle": "🟧🟨【THE ELDER SCROLLS ONLINE】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "1806"
+  },
+  {
+    "sourceTitle": "🟧🟨【RESIDENT EVIL 7 BIOHAZARD】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "723"
+  },
+  {
+    "sourceTitle": "🟧🟨【GRAY ZONE WARFARE】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "2296"
+  },
+  {
+    "sourceTitle": "🟧🟨【BALDUR'S GATE 3】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "3220"
+  },
+  {
+    "sourceTitle": "🟧🟨【ELDEN RING】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "4139"
+  },
+  {
+    "sourceTitle": "🟧🟨【CYBERPUNK 2077】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "4139"
+  },
+  {
+    "sourceTitle": "🟧🟨【HOGWARTS LEGACY】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "5039"
+  },
+  {
+    "sourceTitle": "🟧🟨【SEKIRO: SHADOWS DIE TWICE】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "5784"
+  },
+  {
+    "sourceTitle": "🟧🟨【GOD OF WAR】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "4319"
+  },
+  {
+    "sourceTitle": "🟧🟨【GOD OF WAR RAGNARÖK】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "5129"
+  },
+  {
+    "sourceTitle": "🟧🟨【RESIDENT EVIL 4】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "1647"
+  },
+  {
+    "sourceTitle": "🟧🟨【PALWORLD】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "1868"
+  },
+  {
+    "sourceTitle": "🟧🟨【SONS OF THE FOREST】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "1868"
+  },
+  {
+    "sourceTitle": "🟧🟨【BLACK MYTH: WUKONG】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "4499"
+  },
+  {
+    "sourceTitle": "🟧🟨【LIES OF P】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "4860"
+  },
+  {
+    "sourceTitle": "🟧🟨【PERSONA 5 ROYAL】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "6300"
+  },
+  {
+    "sourceTitle": "🟧🟨【METAPHOR: REFANTAZIO】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "7200"
+  },
+  {
+    "sourceTitle": "🟧🟨【SATISFACTORY】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "2174"
+  },
+  {
+    "sourceTitle": "🟧🟨【HADES】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "1752"
+  },
+  {
+    "sourceTitle": "🟧🟨【DEAD CELLS】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "794"
+  },
+  {
+    "sourceTitle": "🟧🟨【DIVINITY: ORIGINAL SIN 2 - DEFINITIVE EDITION】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "1545"
+  },
+  {
+    "sourceTitle": "🟧🟨【DEVIL MAY CRY 5】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "690"
+  },
+  {
+    "sourceTitle": "🟧🟨【THE LAST OF US PART I】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
+    "price": "5129"
+  }
+];
+
+    function getTitleOnly(item) {
+        return item.sourceTitle;
+    }
+
+    function getPriceOnly(item) {
+        return item.price;
+    }
+
+    const gamesListDiv = document.getElementById('gamesList');
+    const searchInput = document.getElementById('searchInput');
+    const statsSpan = document.getElementById('statsCounter');
+    const copyAllTitlesBtn = document.getElementById('copyAllTitlesBtn');
+    const copyAllPricesBtn = document.getElementById('copyAllPricesBtn');
+    const toastEl = document.getElementById('toast');
+
+    let currentFilter = '';
+
+    function showToast(message) {
+        toastEl.textContent = message;
+        toastEl.style.visibility = 'visible';
+        toastEl.style.opacity = '1';
+        setTimeout(() => {
+            toastEl.style.opacity = '0';
+            setTimeout(() => {
+                toastEl.style.visibility = 'hidden';
+            }, 200);
+        }, 1400);
+    }
+
+    async function copyToClipboard(text) {
+        try {
+            await navigator.clipboard.writeText(text);
+            showToast(`✅ Скопировано: ${text.length > 70 ? text.substring(0, 70) + '…' : text}`);
+        } catch (err) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            showToast(`📋 Скопировано: ${text.length > 70 ? text.substring(0, 70) + '…' : text}`);
+        }
+    }
+
+    function renderGames() {
+        const filterLower = currentFilter.toLowerCase();
+        const filtered = gamesData.filter(game => game.sourceTitle.toLowerCase().includes(filterLower));
+        statsSpan.textContent = `🎮 ${filtered.length} из ${gamesData.length} игр`;
+
+        if (filtered.length === 0) {
+            gamesListDiv.innerHTML = `<div style="text-align:center; padding:40px; background:#0f1422; border-radius:32px;">🔍 Ничего не найдено.</div>`;
+            return;
+        }
+
+        let html = '';
+        filtered.forEach((game, idx) => {
+            const title = getTitleOnly(game);
+            const price = getPriceOnly(game);
+            html += `
+                <div class="game-row" data-idx="${idx}">
+                    <div class="game-info">
+                        <span class="game-title">${escapeHtml(game.sourceTitle)}</span>
+                        <span class="game-price">💰 ${game.price}</span>
+                    </div>
+                    <div class="button-group">
+                        <button class="copy-title-btn" data-copy-title="${escapeAttr(title)}">📋 Копировать название</button>
+                        <button class="copy-price-btn" data-copy-price="${escapeAttr(price)}">💰 Копировать цену</button>
+                    </div>
+                </div>
+            `;
+        });
+        gamesListDiv.innerHTML = html;
+
+        document.querySelectorAll('.copy-title-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const text = btn.getAttribute('data-copy-title');
+                if (text) copyToClipboard(text);
+            });
+        });
+        document.querySelectorAll('.copy-price-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const price = btn.getAttribute('data-copy-price');
+                if (price) copyToClipboard(price);
+            });
+        });
+    }
+
+    function escapeHtml(str) {
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    function escapeAttr(str) {
+        return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+    }
+
+    function copyAllFilteredTitles() {
+        const filterLower = currentFilter.toLowerCase();
+        const filtered = gamesData.filter(game => game.sourceTitle.toLowerCase().includes(filterLower));
+        if (!filtered.length) return showToast('Нет названий для копирования');
+        const allTitles = filtered.map(g => g.sourceTitle).join('\n');
+        copyToClipboard(allTitles);
+    }
+
+    function copyAllFilteredPrices() {
+        const filterLower = currentFilter.toLowerCase();
+        const filtered = gamesData.filter(game => game.sourceTitle.toLowerCase().includes(filterLower));
+        if (!filtered.length) return showToast('Нет цен для копирования');
+        const allPrices = filtered.map(g => g.price).join('\n');
+        copyToClipboard(allPrices);
+    }
+
+    searchInput.addEventListener('input', (e) => {
+        currentFilter = e.target.value;
+        renderGames();
+    });
+    copyAllTitlesBtn.addEventListener('click', copyAllFilteredTitles);
+    copyAllPricesBtn.addEventListener('click', copyAllFilteredPrices);
+
+    renderGames();
+</script>
+</body>
+</html>
