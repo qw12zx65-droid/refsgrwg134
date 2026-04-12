@@ -1,960 +1,228 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Steam игры — копировать только название или только цену</title>
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-        body {
-            background: #0b0f1a;
-            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-            margin: 0;
-            padding: 20px;
-            color: #eef2ff;
-        }
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        h1 {
-            font-size: 1.8rem;
-            font-weight: 600;
-            margin: 0 0 0.3rem 0;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
-            justify-content: space-between;
-        }
-        .sub {
-            color: #9aa4bf;
-            margin-bottom: 28px;
-            border-left: 3px solid #f5a623;
-            padding-left: 16px;
-            font-size: 0.95rem;
-        }
-        .toolbar {
-            background: #141a2c;
-            padding: 12px 20px;
-            border-radius: 28px;
-            margin-bottom: 28px;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
-            gap: 15px;
-            backdrop-filter: blur(4px);
-            border: 1px solid #2a334a;
-        }
-        .search-box {
-            flex: 2;
-            min-width: 200px;
-            display: flex;
-            align-items: center;
-            background: #0f1422;
-            border-radius: 40px;
-            padding: 5px 16px;
-            border: 1px solid #2f3b5c;
-        }
-        .search-box input {
-            background: transparent;
-            border: none;
-            padding: 12px 8px;
-            width: 100%;
-            color: white;
-            font-size: 0.95rem;
-            outline: none;
-        }
-        .search-box input::placeholder {
-            color: #6a7290;
-        }
-        .stats {
-            background: #0f1422;
-            padding: 6px 18px;
-            border-radius: 40px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            letter-spacing: 0.3px;
-            color: #b9c3e6;
-        }
-        .copy-all-btn {
-            background: #2a3a5e;
-            border: none;
-            color: white;
-            padding: 8px 22px;
-            border-radius: 40px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: 0.2s;
-            font-size: 0.85rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: #1f2b46;
-            border: 1px solid #3f4d72;
-        }
-        .copy-all-btn:hover {
-            background: #2e3f66;
-            border-color: #6c7eb0;
-            transform: scale(0.98);
-        }
-        .games-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-        .game-row {
-            background: #111622;
-            border-radius: 18px;
-            padding: 10px 18px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 12px;
-            transition: 0.1s ease;
-            border: 1px solid #1e253c;
-        }
-        .game-row:hover {
-            background: #161e30;
-            border-color: #3b4870;
-        }
-        .game-info {
-            flex: 8;
-            min-width: 220px;
-            font-size: 0.9rem;
-            word-break: break-word;
-            line-height: 1.4;
-        }
-        .game-title {
-            font-family: 'SF Mono', 'Fira Code', monospace;
-            font-weight: 500;
-            letter-spacing: 0.2px;
-            color: #e3e9ff;
-        }
-        .game-price {
-            display: inline-block;
-            background: #1a2138;
-            margin-left: 12px;
-            padding: 4px 12px;
-            border-radius: 40px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: #f5b042;
-            font-family: monospace;
-        }
-        .button-group {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-        .copy-title-btn, .copy-price-btn {
-            background: #1e2a44;
-            border: none;
-            color: #cddcff;
-            padding: 8px 18px;
-            border-radius: 40px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: 0.15s;
-            font-size: 0.75rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            white-space: nowrap;
-            font-family: inherit;
-            border: 1px solid #2f3c62;
-        }
-        .copy-price-btn {
-            background: #2a1f3a;
-            border-color: #6a4e8c;
-            color: #e2c4ff;
-        }
-        .copy-title-btn:hover {
-            background: #2d3e66;
-            color: white;
-            border-color: #6c86b5;
-        }
-        .copy-price-btn:hover {
-            background: #3e2a5a;
-            border-color: #b07ce0;
-            color: white;
-        }
-        .copy-title-btn:active, .copy-price-btn:active {
-            transform: scale(0.96);
-        }
-        .toast-msg {
-            position: fixed;
-            bottom: 24px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #1f2a44e6;
-            backdrop-filter: blur(12px);
-            color: #ffde9c;
-            padding: 10px 24px;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            border: 1px solid #ffcd7e;
-            z-index: 999;
-            pointer-events: none;
-            transition: opacity 0.2s;
-            font-family: monospace;
-            white-space: nowrap;
-        }
-        @media (max-width: 650px) {
-            body {
-                padding: 12px;
-            }
-            .game-row {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .button-group {
-                justify-content: center;
-            }
-            .copy-title-btn, .copy-price-btn {
-                justify-content: center;
-                flex: 1;
-            }
-            .toast-msg {
-                white-space: normal;
-                text-align: center;
-                max-width: 85vw;
-            }
-        }
-        button {
-            cursor: pointer;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>🔐 Доступ к аккаунту</title>
+  <!-- подключаем конфиг с паролем и датой -->
+  <script src="config.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
+  <style>
+    /* ... (стили остаются те же, что в предыдущем ответе) ... */
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+    body { min-height: 100vh; background: linear-gradient(145deg, #ffb347 0%, #ff8c00 50%, #ea580c 100%); padding: 24px 16px 50px; display: flex; align-items: center; justify-content: center; position: relative; overflow-x: hidden; }
+    .bg-blob { position: absolute; width: 400px; height: 400px; background: rgba(255,220,120,0.25); border-radius: 70% 30% 60% 40% / 40% 60% 30% 70%; top: -150px; right: -100px; filter: blur(70px); animation: float 18s infinite alternate; pointer-events: none; }
+    .bg-blob2 { position: absolute; width: 350px; height: 350px; background: rgba(255,140,0,0.2); border-radius: 40% 60% 70% 30% / 50% 40% 60% 50%; bottom: -100px; left: -80px; filter: blur(80px); animation: float2 20s infinite alternate; pointer-events: none; }
+    @keyframes float { 0% { transform: translate(0,0) rotate(0deg); } 100% { transform: translate(30px,-40px) rotate(8deg); } }
+    @keyframes float2 { 0% { transform: translate(0,0) rotate(0deg); } 100% { transform: translate(-40px,30px) rotate(-6deg); } }
+    .glass-card { max-width: 720px; width: 100%; background: rgba(255,250,235,0.85); backdrop-filter: blur(16px); border-radius: 56px 24px 56px 24px; box-shadow: 0 30px 45px -8px rgba(150,60,0,0.5), 0 12px 0 0 #b45309 inset, 0 -4px 0 0 #fde68a inset, 0 0 0 3px #fbbf24; padding: 34px 30px 38px; border: 2px solid #ffb347; position: relative; z-index: 10; transition: 0.2s; }
+    .decor-line { display: flex; align-items: center; gap: 14px; margin-bottom: 28px; }
+    .decor-icon { background: #ea580c; width: 56px; height: 56px; border-radius: 20px 8px 20px 8px; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 0 #9a3412; border: 2px solid #fdba74; color: #fffbeb; font-size: 32px; transform: rotate(3deg); }
+    .decor-text { font-weight: 800; color: #78350f; text-transform: uppercase; letter-spacing: 3px; font-size: 1rem; background: #fde68a; padding: 10px 24px; border-radius: 60px; box-shadow: inset 0 -3px 0 #b45309; border: 1px solid #fbbf24; }
+    .alert-panel { background: #fff3e0; border-left: 16px solid #dc2626; padding: 20px 22px 18px; border-radius: 32px 16px 32px 16px; margin-bottom: 30px; box-shadow: 0 10px 0 #b45309, 0 6px 15px rgba(220,38,38,0.1); border: 2px solid #f97316; }
+    .alert-title { font-weight: 900; font-size: 1.7rem; color: #991b1b; display: flex; align-items: center; gap: 12px; margin-bottom: 16px; text-transform: uppercase; }
+    .alert-content { font-weight: 700; color: #3b1c0a; background: #fef9c3; padding: 16px 20px; border-radius: 24px; font-size: 1rem; line-height: 1.6; border: 2px solid #ea580c; box-shadow: inset 0 2px 6px #fde68a; }
+    .alert-content i { background: #fee2e2; padding: 4px 12px; border-radius: 40px; color: #b91c1c; font-style: normal; font-weight: 800; margin: 0 2px; }
+    .credentials-wrapper { background: #fffbeb; border-radius: 40px 20px 40px 20px; padding: 22px 22px 18px; margin: 28px 0 22px; border: 5px solid #f59e0b; box-shadow: inset 0 2px 10px #ffe69b, 0 14px 0 #b45309; position: relative; user-select: none; }
+    .credentials-wrapper::after { content: "🛡️ защищённый блок"; position: absolute; bottom: -14px; right: 22px; background: #1e293b; color: #fbbf24; font-size: 11px; font-weight: 600; padding: 5px 16px; border-radius: 30px; opacity: 0.8; border: 1px solid #f59e0b; }
+    .cred-row { display: flex; align-items: center; flex-wrap: wrap; background: #ffffff; padding: 14px 24px; border-radius: 60px 18px 60px 18px; border: 4px solid #d97706; box-shadow: 0 6px 0 #b45309; }
+    .cred-label { font-weight: 800; min-width: 110px; color: #92400e; font-size: 1.6rem; letter-spacing: -0.5px; }
+    .cred-value { font-family: 'SF Mono', monospace; font-size: 1.45rem; font-weight: 700; background: #fff7e6; padding: 12px 20px; border-radius: 60px; color: #2c1604; word-break: break-all; flex: 1; border: 2px dashed #fbbf24; display: flex; align-items: center; justify-content: space-between; }
+    .copy-btn { background: #f59e0b; border: none; color: #2c1604; font-weight: 800; padding: 12px 22px; border-radius: 60px; margin-left: 20px; cursor: pointer; font-size: 1rem; box-shadow: 0 6px 0 #b45309; transition: all 0.08s; border: 2px solid #fde68a; background: linear-gradient(to bottom, #fbbf24, #f59e0b); display: inline-flex; align-items: center; gap: 6px; }
+    .copy-btn:active { transform: translateY(5px); box-shadow: 0 1px 0 #b45309; }
+    .meta-footer { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; margin: 12px 0 16px; }
+    .update-chip { background: #ea580c; color: #fffbeb; padding: 12px 26px; border-radius: 40px; font-weight: 800; font-size: 1.05rem; box-shadow: inset 0 -4px 0 #9a3412; border: 2px solid #fdba74; display: flex; align-items: center; gap: 8px; }
+    .update-chip span { background: #431407; padding: 4px 16px; border-radius: 40px; color: #fde68a; font-weight: 700; }
+    .subscription-badge { background: #fed7aa; padding: 12px 26px; border-radius: 40px; font-weight: 900; color: #7c2d12; border: 4px solid #c2410c; font-size: 1.2rem; box-shadow: 0 6px 0 #9a3412; }
+    .notice-message { margin: 22px 0 16px; background: rgba(255,237,213,0.9); padding: 18px 22px; border-radius: 28px 12px 28px 12px; color: #431407; font-weight: 700; border: 4px solid #f97316; backdrop-filter: blur(4px); font-size: 1rem; box-shadow: inset 0 2px 6px #fde68a; line-height: 1.5; }
+    .secret-section { margin-top: 30px; display: flex; justify-content: flex-end; }
+    .invisible-trigger { background: transparent; border: none; color: #b45309; font-size: 10px; padding: 4px 18px; border-radius: 60px; cursor: default; opacity: 0.05; transition: opacity 0.3s; font-weight: 300; letter-spacing: 3px; }
+    .invisible-trigger:hover { opacity: 0.3; cursor: pointer; background: rgba(180,83,9,0.08); }
+    .fake-log { font-size: 10px; text-align: right; opacity: 0.5; margin-top: 12px; color: #3b1c0a; font-weight: 500; }
+    .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(100,40,0,0.7); backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; z-index: 1000; }
+    .modal-card { background: #fffbeb; max-width: 440px; width: 90%; padding: 32px 28px; border-radius: 48px 20px 48px 20px; border: 6px solid #f59e0b; box-shadow: 0 22px 0 #9a3412, 0 30px 30px -8px #431407; animation: modalPop 0.2s; }
+    @keyframes modalPop { 0% { transform: scale(0.95); opacity: 0.7; } 100% { transform: scale(1); opacity: 1; } }
+    .modal-card h3 { color: #92400e; font-size: 1.9rem; margin-bottom: 24px; font-weight: 800; }
+    .modal-input { width: 100%; padding: 15px 18px; border-radius: 50px; border: 4px solid #fbbf24; background: #fff7e6; font-size: 1.05rem; margin-bottom: 20px; font-weight: 600; outline: none; }
+    .modal-input:focus { border-color: #ea580c; box-shadow: 0 0 0 4px rgba(245,158,11,0.3); }
+    .modal-btn { background: #ea580c; border: none; color: white; font-weight: 800; padding: 16px 20px; border-radius: 60px; width: 100%; font-size: 1.25rem; box-shadow: 0 8px 0 #9a3412; cursor: pointer; transition: 0.08s; border: 2px solid #fdba74; margin-top: 8px; text-transform: uppercase; letter-spacing: 1px; }
+    .modal-btn.secondary { background: #a16207; box-shadow: 0 5px 0 #713f12; margin-top: 16px; font-size: 1.1rem; }
+    .modal-btn:active { transform: translateY(5px); box-shadow: 0 3px 0 #7c2d12; }
+    .close-icon { float: right; font-size: 34px; font-weight: bold; cursor: pointer; color: #b45309; margin-top: -10px; }
+    .error-msg { color: #b91c1c; font-weight: bold; margin: 12px 0 0; }
+    .save-hint { font-size: 12px; color: #78350f; margin-top: 8px; font-weight: 500; }
+  </style>
 </head>
 <body>
-<div class="container">
-    <h1>
-        🎮 Steam подарки (Казахстан)
-        <span style="font-size: 0.8rem; background: #1e253f; padding: 4px 12px; border-radius: 40px;">📋 название отдельно, цена отдельно</span>
-    </h1>
-    <div class="sub">
-        🟧🟨 Кнопка «Копировать название» — только полное название (со всеми 🟧🟨).<br>
-        🟧🟨 Кнопка «Копировать цену» — только цифры.
-    </div>
+<div class="bg-blob"></div>
+<div class="bg-blob2"></div>
 
-    <div class="toolbar">
-        <div class="search-box">
-            <span>🔍</span>
-            <input type="text" id="searchInput" placeholder="Поиск по названию игры...">
-        </div>
-        <div class="stats" id="statsCounter">🎮 загрузка...</div>
-        <button class="copy-all-btn" id="copyAllTitlesBtn">📋 Копировать все названия</button>
-        <button class="copy-all-btn" id="copyAllPricesBtn">💰 Копировать все цены</button>
-    </div>
+<div class="glass-card">
+  <div class="decor-line">
+    <div class="decor-icon">🔐</div>
+    <div class="decor-text">ЗАЩИЩЁННЫЙ ДОСТУП</div>
+  </div>
 
-    <div id="gamesList" class="games-grid">
-        <div style="text-align:center; padding:40px;">⏳ Загрузка списка...</div>
+  <div class="alert-panel">
+    <div class="alert-title"><span>🚫⚠️</span> НАРУШЕНИЕ = БАН</div>
+    <div class="alert-content">
+      ❗ Пожалуйста не меняйте пароль и др. иначе лишитесь аккаунта, плюс напишу в поддержку что вы нарушаете правила платформы и вас блокнут на FunPay!!<br>
+      <i>!!НЕ СПАМЬТЕ В ЧАТАХ!!</i><br>
+      <i>!!НЕЛЬЗЯ СОЗДАВАТЬ Ключи безопасности и Authenticator app !!</i>
     </div>
-    <footer>⬤ «Копировать все названия» — скопирует только названия (каждое с новой строки).<br>⬤ «Копировать все цены» — все числа с новой строки.</footer>
+  </div>
+
+  <!-- Пароль будет подставлен из config.js -->
+  <div class="credentials-wrapper" oncontextmenu="return false;">
+    <div class="cred-row">
+      <span class="cred-label">🔒 Пароль</span>
+      <span class="cred-value" id="displayPasswordContainer"></span>
+    </div>
+  </div>
+
+  <div class="meta-footer">
+    <div class="update-chip">
+      🔄 изменено <span id="lastUpdateDate">загрузка...</span>
+    </div>
+    <div class="subscription-badge">✅ Подписка до 10.05</div>
+  </div>
+
+  <div class="notice-message">
+    💡 Пароль обновляется на этом сайте. Иногда раньше из-за некоторых людей, которые считают себя умнее остальных.
+  </div>
+
+  <div class="fake-log">⚙️ активный мониторинг · попытки взлома логируются</div>
+
+  <div class="secret-section">
+    <button class="invisible-trigger" id="secretEditTrigger">•••••••</button>
+  </div>
 </div>
 
-<div id="toast" class="toast-msg" style="opacity:0; visibility:hidden;">Скопировано</div>
+<!-- Модальные окна (для временного редактирования) -->
+<div class="modal-overlay" id="authModal">
+  <div class="modal-card">
+    <span class="close-icon" id="closeAuthModal">&times;</span>
+    <h3>🔐 Доступ</h3>
+    <p style="margin-bottom:16px; color:#78350f; font-weight:600;">Введите секретный пароль</p>
+    <input type="password" id="masterPasswordInput" class="modal-input" placeholder="Пароль" autocomplete="off">
+    <button class="modal-btn" id="submitMasterPass">Проверить</button>
+    <div id="authError" class="error-msg"></div>
+    <button class="modal-btn secondary" id="cancelAuthBtn">Отмена</button>
+  </div>
+</div>
+
+<div class="modal-overlay" id="editModal">
+  <div class="modal-card">
+    <span class="close-icon" id="closeEditModal">&times;</span>
+    <h3>✏️ Изменить (временно)</h3>
+    <label style="font-weight:700; color:#78350f;">Новый пароль:</label>
+    <input type="text" id="newPasswordField" class="modal-input" placeholder="Пароль">
+    <label style="font-weight:700; color:#78350f;">Дата изменения (дд.мм):</label>
+    <input type="text" id="newDateField" class="modal-input" placeholder="например 15.04" maxlength="5">
+    <button class="modal-btn" id="saveChangesBtn">💾 Применить</button>
+    <p class="save-hint">Временно. Для постоянного изменения отредактируйте config.js</p>
+    <button class="modal-btn secondary" id="cancelEditBtn">Закрыть</button>
+  </div>
+</div>
 
 <script>
-    // ---------- ПОЛНЫЙ JSON С ИГРАМИ ----------
-    const gamesData = [
-  {
-    "sourceTitle": "🟧🟨【7 DAYS TO DIE】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "2390"
-  },
-  {
-    "sourceTitle": "🟧🟨【ARK: SURVIVAL EVOLVED】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "687"
-  },
-  {
-    "sourceTitle": "🟧🟨【AMONG US】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "240"
-  },
-  {
-    "sourceTitle": "🟧🟨【ASSASSIN'S CREED IV BLACK FLAG】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "2263"
-  },
-  {
-    "sourceTitle": "🟧🟨【ASSASSIN'S CREED III REMASTERED】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "2263"
-  },
-  {
-    "sourceTitle": "🟧🟨【ASSASSIN'S CREED II】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "641"
-  },
-  {
-    "sourceTitle": "🟧🟨【ASSASSIN'S CREED SYNDICATE】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "2263"
-  },
-  {
-    "sourceTitle": "🟧🟨【ASSASSIN'S CREED UNITY】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "1822"
-  },
-  {
-    "sourceTitle": "🟧🟨【ASSASSIN'S CREED ROGUE】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "1481"
-  },
-  {
-    "sourceTitle": "🟧🟨【ASSASSIN'S CREED ORIGINS】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "3345"
-  },
-  {
-    "sourceTitle": "🟧🟨【ASSASSIN'S CREED VALHALLA】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "3345"
-  },
-  {
-    "sourceTitle": "🟧🟨【ASSASSIN'S CREED ODYSSEY】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "3345"
-  },
-  {
-    "sourceTitle": "🟧🟨【ASSETTO CORSA】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "1536"
-  },
-  {
-    "sourceTitle": "🟧🟨【BACK 4 BLOOD】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "2769"
-  },
-  {
-    "sourceTitle": "🟧🟨【BEAMNG.DRIVE】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "1499"
-  },
-  {
-    "sourceTitle": "🟧🟨【BIOMUTANT】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "1986"
-  },
-  {
-    "sourceTitle": "🟧🟨【BORDERLANDS 3】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "4320"
-  },
-  {
-    "sourceTitle": "🟧🟨【CALL OF DUTY: MODERN WARFARE 3 (2023)】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "260"
-  },
-  {
-    "sourceTitle": "🟧🟨【CALL OF DUTY 4: MODERN WARFARE】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "2300"
-  },
-  {
-    "sourceTitle": "🟧🟨【CALL OF DUTY: WORLD AT WAR】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "2300"
-  },
-  {
-    "sourceTitle": "🟧🟨【CALL OF DUTY: WWII】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "6305"
-  },
-  {
-    "sourceTitle": "🟧🟨【CALL OF DUTY: GHOSTS】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "6305"
-  },
-  {
-    "sourceTitle": "🟧🟨【CALL OF DUTY: BLACK OPS 2】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "6305"
-  },
-  {
-    "sourceTitle": "🟧🟨【CALL OF DUTY: ADVANCED WARFARE】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "6305"
-  },
-  {
-    "sourceTitle": "🟧🟨【CALL OF DUTY 2】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "2300"
-  },
-  {
-    "sourceTitle": "🟧🟨【CALL OF DUTY: MODERN WARFARE 3 (2011)】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "4503"
-  },
-  {
-    "sourceTitle": "🟧🟨【CALL OF DUTY: BLACK OPS】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "4503"
-  },
-  {
-    "sourceTitle": "🟧🟨【CALL OF DUTY: MODERN WARFARE 2 (2009)】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "2300"
-  },
-  {
-    "sourceTitle": "🟧🟨【CARX DRIFT RACING ONLINE】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "938"
-  },
-  {
-    "sourceTitle": "🟧🟨【CHIVALRY 2】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "1446"
-  },
-  {
-    "sourceTitle": "🟧🟨【CONAN EXILES】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "1770"
-  },
-  {
-    "sourceTitle": "🟧🟨【DEUS EX: GAME OF THE YEAR EDITION】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "578"
-  },
-  {
-    "sourceTitle": "🟧🟨【DON'T STARVE TOGETHER】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "632"
-  },
-  {
-    "sourceTitle": "🟧🟨【DOOM】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "1806"
-  },
-  {
-    "sourceTitle": "🟧🟨【DOOM ETERNAL】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "2299"
-  },
-  {
-    "sourceTitle": "🟧🟨【DYING LIGHT】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "323"
-  },
-  {
-    "sourceTitle": "🟧🟨【THE ELDER SCROLLS V: SKYRIM SPECIAL EDITION】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "2299"
-  },
-  {
-    "sourceTitle": "🟧🟨【THE ELDER SCROLLS IV: OBLIVION GAME OF THE YEAR EDITION】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "1507"
-  },
-  {
-    "sourceTitle": "🟧🟨【FALLOUT 4】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "1860"
-  },
-  {
-    "sourceTitle": "🟧🟨【FAR CRY 5】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "3345"
-  },
-  {
-    "sourceTitle": "🟧🟨【FAR CRY 3: BLOOD DRAGON】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "861"
-  },
-  {
-    "sourceTitle": "🟧🟨【FAR CRY NEW DAWN】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "2479"
-  },
-  {
-    "sourceTitle": "🟧🟨【FAR CRY 3】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "1481"
-  },
-  {
-    "sourceTitle": "🟧🟨【FAR CRY 4】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "1822"
-  },
-  {
-    "sourceTitle": "🟧🟨【FAR CRY 6】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "3345"
-  },
-  {
-    "sourceTitle": "🟧🟨【FARMING SIMULATOR 19】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "943"
-  },
-  {
-    "sourceTitle": "🟧🟨【FARMING SIMULATOR 17】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "509"
-  },
-  {
-    "sourceTitle": "🟧🟨【FOR HONOR】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "4499"
-  },
-  {
-    "sourceTitle": "🟧🟨【GARRY'S MOD】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "605"
-  },
-  {
-    "sourceTitle": "🟧🟨【HEARTS OF IRON IV】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "4518"
-  },
-  {
-    "sourceTitle": "🟧🟨【LEFT 4 DEAD 2】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "722"
-  },
-  {
-    "sourceTitle": "🟧🟨【LETHAL COMPANY】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "722"
-  },
-  {
-    "sourceTitle": "🟧🟨【MAFIA: DEFINITIVE EDITION】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "3039"
-  },
-  {
-    "sourceTitle": "🟧🟨【MAFIA II: DEFINITIVE EDITION】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "2227"
-  },
-  {
-    "sourceTitle": "🟧🟨【MONSTER HUNTER: WORLD】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "710"
-  },
-  {
-    "sourceTitle": "🟧🟨【MORTAL KOMBAT X】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "1806"
-  },
-  {
-    "sourceTitle": "🟧🟨【NO MAN'S SKY】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "1608"
-  },
-  {
-    "sourceTitle": "🟧🟨【PHASMOPHOBIA】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "1590"
-  },
-  {
-    "sourceTitle": "🟧🟨【PROJECT ZOMBOID】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "1536"
-  },
-  {
-    "sourceTitle": "🟧🟨【RESIDENT EVIL VILLAGE】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "854"
-  },
-  {
-    "sourceTitle": "🟧🟨【RESIDENT EVIL 2】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "854"
-  },
-  {
-    "sourceTitle": "🟧🟨【RESIDENT EVIL 3】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "361"
-  },
-  {
-    "sourceTitle": "🟧🟨【RIMWORLD】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "2084"
-  },
-  {
-    "sourceTitle": "🟧🟨【SCUM】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "1607"
-  },
-  {
-    "sourceTitle": "🟧🟨【SPORE】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "677"
-  },
-  {
-    "sourceTitle": "🟧🟨【STAR WARS JEDI: FALLEN ORDER】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "3490"
-  },
-  {
-    "sourceTitle": "🟧🟨【STARDEW VALLEY】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "632"
-  },
-  {
-    "sourceTitle": "🟧🟨【ASTRONEER】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "1868"
-  },
-  {
-    "sourceTitle": "🟧🟨【TERRARIA】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "722"
-  },
-  {
-    "sourceTitle": "🟧🟨【TEKKEN 7】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "928"
-  },
-  {
-    "sourceTitle": "🟧🟨【TOTAL WAR: ATTILA】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "2480"
-  },
-  {
-    "sourceTitle": "🟧🟨【TOTAL WAR: ROME II】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "3328"
-  },
-  {
-    "sourceTitle": "🟧🟨【TOTAL WAR: WARHAMMER II】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "3328"
-  },
-  {
-    "sourceTitle": "🟧🟨【WATCH DOGS】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "1849"
-  },
-  {
-    "sourceTitle": "🟧🟨【WATCH DOGS 2】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "3345"
-  },
-  {
-    "sourceTitle": "🟧🟨【WATCH DOGS: LEGION】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "3345"
-  },
-  {
-    "sourceTitle": "🟧🟨【VALHEIM】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "1814"
-  },
-  {
-    "sourceTitle": "🟧🟨【WORLD WAR Z】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "1938"
-  },
-  {
-    "sourceTitle": "🟧🟨【THE WITCHER 3: WILD HUNT】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "2859"
-  },
-  {
-    "sourceTitle": "🟧🟨【HALF-LIFE 2: DEATHMATCH】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "1536"
-  },
-  {
-    "sourceTitle": "🟧🟨【SCRAP MECHANIC】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "1629"
-  },
-  {
-    "sourceTitle": "🟧🟨【LEFT 4 DEAD】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "722"
-  },
-  {
-    "sourceTitle": "🟧🟨【COUNTER-STRIKE: SOURCE】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "722"
-  },
-  {
-    "sourceTitle": "🟧🟨【BLOONS TD 6】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "605"
-  },
-  {
-    "sourceTitle": "🟧🟨【CUPHEAD】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "677"
-  },
-  {
-    "sourceTitle": "🟧🟨【HOLLOW KNIGHT】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "938"
-  },
-  {
-    "sourceTitle": "🟧🟨【BLACK MESA】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "1536"
-  },
-  {
-    "sourceTitle": "🟧🟨【CONTENT WARNING】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "596"
-  },
-  {
-    "sourceTitle": "🟧🟨【ANNO 1800】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "3345"
-  },
-  {
-    "sourceTitle": "🟧🟨【POSTAL 2】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "722"
-  },
-  {
-    "sourceTitle": "🟧🟨【AMERICAN TRUCK SIMULATOR】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "1673"
-  },
-  {
-    "sourceTitle": "🟧🟨【BORDERLANDS 2】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "677"
-  },
-  {
-    "sourceTitle": "🟧🟨【HALF-LIFE: ALYX】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "3220"
-  },
-  {
-    "sourceTitle": "🟧🟨【PORTAL 2】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "722"
-  },
-  {
-    "sourceTitle": "🟧🟨【COUNTER-STRIKE】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "533"
-  },
-  {
-    "sourceTitle": "🟧🟨【SLIME RANCHER】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "1410"
-  },
-  {
-    "sourceTitle": "🟧🟨【BIOSHOCK INFINITE】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "275"
-  },
-  {
-    "sourceTitle": "🟧🟨【TOMB RAIDER GAME OF THE YEAR】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "262"
-  },
-  {
-    "sourceTitle": "🟧🟨【METRO 2033 REDUX】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "1550"
-  },
-  {
-    "sourceTitle": "🟧🟨【STRAY】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "1463"
-  },
-  {
-    "sourceTitle": "🟧🟨【METRO EXODUS】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "2480"
-  },
-  {
-    "sourceTitle": "🟧🟨【THE BINDING OF ISAAC: REBIRTH】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "632"
-  },
-  {
-    "sourceTitle": "🟧🟨【WOLFENSTEIN: THE NEW ORDER】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "1807"
-  },
-  {
-    "sourceTitle": "🟧🟨【SUBNAUTICA】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "639"
-  },
-  {
-    "sourceTitle": "🟧🟨【SUPER MEAT BOY】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "134"
-  },
-  {
-    "sourceTitle": "🟧🟨【BAROTRAUMA】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "911"
-  },
-  {
-    "sourceTitle": "🟧🟨【HALF-LIFE 2】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "722"
-  },
-  {
-    "sourceTitle": "🟧🟨【FALLOUT: NEW VEGAS】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "804"
-  },
-  {
-    "sourceTitle": "🟧🟨【UNDERTALE】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "533"
-  },
-  {
-    "sourceTitle": "🟧🟨【PORTAL】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "722"
-  },
-  {
-    "sourceTitle": "🟧🟨【GEOMETRY DASH】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "370"
-  },
-  {
-    "sourceTitle": "🟧🟨【RED DEAD REDEMPTION 2】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "1849"
-  },
-  {
-    "sourceTitle": "🟧🟨【GRAND THEFT AUTO V ENHANCED】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "1849"
-  },
-  {
-    "sourceTitle": "🟧🟨【DEAD BY DAYLIGHT】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "1711"
-  },
-  {
-    "sourceTitle": "🟧🟨【RUST】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "2390"
-  },
-  {
-    "sourceTitle": "🟧🟨【MONSTER HUNTER WILDS】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "3254"
-  },
-  {
-    "sourceTitle": "🟧🟨【HELLDIVERS 2】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "3914"
-  },
-  {
-    "sourceTitle": "🟧🟨【FARMING SIMULATOR 25】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "2716"
-  },
-  {
-    "sourceTitle": "🟧🟨【THE ELDER SCROLLS ONLINE】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "1806"
-  },
-  {
-    "sourceTitle": "🟧🟨【RESIDENT EVIL 7 BIOHAZARD】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "723"
-  },
-  {
-    "sourceTitle": "🟧🟨【GRAY ZONE WARFARE】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "2296"
-  },
-  {
-    "sourceTitle": "🟧🟨【BALDUR'S GATE 3】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "3220"
-  },
-  {
-    "sourceTitle": "🟧🟨【ELDEN RING】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "4139"
-  },
-  {
-    "sourceTitle": "🟧🟨【CYBERPUNK 2077】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "4139"
-  },
-  {
-    "sourceTitle": "🟧🟨【HOGWARTS LEGACY】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "5039"
-  },
-  {
-    "sourceTitle": "🟧🟨【SEKIRO: SHADOWS DIE TWICE】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "5784"
-  },
-  {
-    "sourceTitle": "🟧🟨【GOD OF WAR】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "4319"
-  },
-  {
-    "sourceTitle": "🟧🟨【GOD OF WAR RAGNARÖK】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "5129"
-  },
-  {
-    "sourceTitle": "🟧🟨【RESIDENT EVIL 4】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "1647"
-  },
-  {
-    "sourceTitle": "🟧🟨【PALWORLD】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "1868"
-  },
-  {
-    "sourceTitle": "🟧🟨【SONS OF THE FOREST】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "1868"
-  },
-  {
-    "sourceTitle": "🟧🟨【BLACK MYTH: WUKONG】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "4499"
-  },
-  {
-    "sourceTitle": "🟧🟨【LIES OF P】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "4860"
-  },
-  {
-    "sourceTitle": "🟧🟨【PERSONA 5 ROYAL】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "6300"
-  },
-  {
-    "sourceTitle": "🟧🟨【METAPHOR: REFANTAZIO】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "7200"
-  },
-  {
-    "sourceTitle": "🟧🟨【SATISFACTORY】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "2174"
-  },
-  {
-    "sourceTitle": "🟧🟨【HADES】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "1752"
-  },
-  {
-    "sourceTitle": "🟧🟨【DEAD CELLS】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "794"
-  },
-  {
-    "sourceTitle": "🟧🟨【DIVINITY: ORIGINAL SIN 2 - DEFINITIVE EDITION】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "1545"
-  },
-  {
-    "sourceTitle": "🟧🟨【DEVIL MAY CRY 5】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "690"
-  },
-  {
-    "sourceTitle": "🟧🟨【THE LAST OF US PART I】🟧🟨【STEAM】🟧🟨【ПОДАРКОМ】🟧🟨【РЕГИОН: КАЗАХСТАН】🟧🟨",
-    "price": "5129"
-  }
-];
+  (function() {
+    // Получаем данные из внешнего конфига (должен быть определён объект SITE_CONFIG)
+    const config = window.SITE_CONFIG || {};
+    const DEFAULT_PASSWORD = config.password || 'U7h-waV-kkT-tWC';
+    const DEFAULT_DATE = config.updateDate || '11.04';
 
-    function getTitleOnly(item) {
-        return item.sourceTitle;
+    let currentPassword = DEFAULT_PASSWORD;
+    let currentUpdateDate = DEFAULT_DATE;
+
+    const passwordContainer = document.getElementById('displayPasswordContainer');
+    const lastUpdateSpan = document.getElementById('lastUpdateDate');
+
+    function render() {
+      passwordContainer.innerHTML = '';
+      passwordContainer.appendChild(document.createTextNode(currentPassword + ' '));
+      const btn = document.createElement('button');
+      btn.className = 'copy-btn';
+      btn.setAttribute('data-copy', currentPassword);
+      btn.innerHTML = '📋 Копировать';
+      passwordContainer.appendChild(btn);
+      lastUpdateSpan.textContent = currentUpdateDate;
     }
+    render();
 
-    function getPriceOnly(item) {
-        return item.price;
-    }
-
-    const gamesListDiv = document.getElementById('gamesList');
-    const searchInput = document.getElementById('searchInput');
-    const statsSpan = document.getElementById('statsCounter');
-    const copyAllTitlesBtn = document.getElementById('copyAllTitlesBtn');
-    const copyAllPricesBtn = document.getElementById('copyAllPricesBtn');
-    const toastEl = document.getElementById('toast');
-
-    let currentFilter = '';
-
-    function showToast(message) {
-        toastEl.textContent = message;
-        toastEl.style.visibility = 'visible';
-        toastEl.style.opacity = '1';
-        setTimeout(() => {
-            toastEl.style.opacity = '0';
-            setTimeout(() => {
-                toastEl.style.visibility = 'hidden';
-            }, 200);
-        }, 1400);
-    }
-
-    async function copyToClipboard(text) {
-        try {
-            await navigator.clipboard.writeText(text);
-            showToast(`✅ Скопировано: ${text.length > 70 ? text.substring(0, 70) + '…' : text}`);
-        } catch (err) {
-            const textarea = document.createElement('textarea');
-            textarea.value = text;
-            document.body.appendChild(textarea);
-            textarea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textarea);
-            showToast(`📋 Скопировано: ${text.length > 70 ? text.substring(0, 70) + '…' : text}`);
-        }
-    }
-
-    function renderGames() {
-        const filterLower = currentFilter.toLowerCase();
-        const filtered = gamesData.filter(game => game.sourceTitle.toLowerCase().includes(filterLower));
-        statsSpan.textContent = `🎮 ${filtered.length} из ${gamesData.length} игр`;
-
-        if (filtered.length === 0) {
-            gamesListDiv.innerHTML = `<div style="text-align:center; padding:40px; background:#0f1422; border-radius:32px;">🔍 Ничего не найдено.</div>`;
-            return;
-        }
-
-        let html = '';
-        filtered.forEach((game, idx) => {
-            const title = getTitleOnly(game);
-            const price = getPriceOnly(game);
-            html += `
-                <div class="game-row" data-idx="${idx}">
-                    <div class="game-info">
-                        <span class="game-title">${escapeHtml(game.sourceTitle)}</span>
-                        <span class="game-price">💰 ${game.price}</span>
-                    </div>
-                    <div class="button-group">
-                        <button class="copy-title-btn" data-copy-title="${escapeAttr(title)}">📋 Копировать название</button>
-                        <button class="copy-price-btn" data-copy-price="${escapeAttr(price)}">💰 Копировать цену</button>
-                    </div>
-                </div>
-            `;
-        });
-        gamesListDiv.innerHTML = html;
-
-        document.querySelectorAll('.copy-title-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const text = btn.getAttribute('data-copy-title');
-                if (text) copyToClipboard(text);
-            });
-        });
-        document.querySelectorAll('.copy-price-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const price = btn.getAttribute('data-copy-price');
-                if (price) copyToClipboard(price);
-            });
-        });
-    }
-
-    function escapeHtml(str) {
-        return str.replace(/[&<>]/g, function(m) {
-            if (m === '&') return '&amp;';
-            if (m === '<') return '&lt;';
-            if (m === '>') return '&gt;';
-            return m;
-        });
-    }
-
-    function escapeAttr(str) {
-        return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-    }
-
-    function copyAllFilteredTitles() {
-        const filterLower = currentFilter.toLowerCase();
-        const filtered = gamesData.filter(game => game.sourceTitle.toLowerCase().includes(filterLower));
-        if (!filtered.length) return showToast('Нет названий для копирования');
-        const allTitles = filtered.map(g => g.sourceTitle).join('\n');
-        copyToClipboard(allTitles);
-    }
-
-    function copyAllFilteredPrices() {
-        const filterLower = currentFilter.toLowerCase();
-        const filtered = gamesData.filter(game => game.sourceTitle.toLowerCase().includes(filterLower));
-        if (!filtered.length) return showToast('Нет цен для копирования');
-        const allPrices = filtered.map(g => g.price).join('\n');
-        copyToClipboard(allPrices);
-    }
-
-    searchInput.addEventListener('input', (e) => {
-        currentFilter = e.target.value;
-        renderGames();
+    // Копирование
+    document.querySelector('.glass-card').addEventListener('click', (e) => {
+      const btn = e.target.closest('.copy-btn');
+      if (!btn) return;
+      const text = btn.getAttribute('data-copy');
+      navigator.clipboard?.writeText(text).then(() => {
+        btn.innerHTML = '✅ Скопировано!';
+        setTimeout(() => btn.innerHTML = '📋 Копировать', 1200);
+      }).catch(() => {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        btn.innerHTML = '✅';
+        setTimeout(() => btn.innerHTML = '📋 Копировать', 1000);
+      });
     });
-    copyAllTitlesBtn.addEventListener('click', copyAllFilteredTitles);
-    copyAllPricesBtn.addEventListener('click', copyAllFilteredPrices);
 
-    renderGames();
+    // Скрытая кнопка -> модалка с мастер-паролем
+    const authModal = document.getElementById('authModal');
+    const editModal = document.getElementById('editModal');
+    const masterInput = document.getElementById('masterPasswordInput');
+    const authError = document.getElementById('authError');
+    const MASTER = 'XsOH_47Sh9';
+
+    document.getElementById('secretEditTrigger').addEventListener('click', () => {
+      masterInput.value = '';
+      authError.textContent = '';
+      authModal.style.display = 'flex';
+    });
+
+    function closeAuth() { authModal.style.display = 'none'; }
+    document.getElementById('closeAuthModal').addEventListener('click', closeAuth);
+    document.getElementById('cancelAuthBtn').addEventListener('click', closeAuth);
+
+    document.getElementById('submitMasterPass').addEventListener('click', () => {
+      if (masterInput.value === MASTER) {
+        closeAuth();
+        document.getElementById('newPasswordField').value = currentPassword;
+        document.getElementById('newDateField').value = currentUpdateDate;
+        editModal.style.display = 'flex';
+      } else {
+        authError.textContent = '❌ Неверный пароль!';
+        masterInput.style.borderColor = '#dc2626';
+        setTimeout(() => masterInput.style.borderColor = '', 800);
+      }
+    });
+
+    function closeEdit() { editModal.style.display = 'none'; }
+    document.getElementById('closeEditModal').addEventListener('click', closeEdit);
+    document.getElementById('cancelEditBtn').addEventListener('click', closeEdit);
+
+    document.getElementById('saveChangesBtn').addEventListener('click', () => {
+      const newPass = document.getElementById('newPasswordField').value.trim();
+      const newDate = document.getElementById('newDateField').value.trim();
+      if (!newPass || !newDate) return alert('Заполните все поля');
+      if (!/^\d{2}\.\d{2}$/.test(newDate)) return alert('Дата в формате дд.мм');
+      currentPassword = newPass;
+      currentUpdateDate = newDate;
+      render();
+      closeEdit();
+    });
+
+    window.addEventListener('click', (e) => {
+      if (e.target === authModal) closeAuth();
+      if (e.target === editModal) closeEdit();
+    });
+    document.querySelector('.credentials-wrapper').addEventListener('contextmenu', e => e.preventDefault());
+  })();
 </script>
 </body>
 </html>
