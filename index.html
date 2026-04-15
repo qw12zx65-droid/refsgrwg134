@@ -1,14 +1,13 @@
 <!DOCTYPE html>
-<!-- saved from url=(0070)file:///C:/Users/Vsevolod/Downloads/deepseek_html_20260414_cfe4fa.html -->
-<html lang="ru"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  
+<html lang="ru">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
   <title>🌌 Инструкция · Доступ к ChatGPT</title>
   <link rel="preconnect" href="https://fonts.googleapis.com/">
   <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
-  <link href="./🌌 Инструкция · Доступ к ChatGPT_files/css2" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <style>
-    /* === стили без изменений === */
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
     body { min-height: 100vh; background: radial-gradient(circle at 30% 40%, #0b0f2a, #020408); padding: 20px 12px 50px; display: flex; flex-direction: column; align-items: center; position: relative; overflow-x: hidden; }
     .stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
@@ -60,131 +59,135 @@
     .error-msg { color: #ff8099; font-weight: bold; margin: 10px 0 0; }
     @media (max-width: 600px) { body { padding: 16px 8px 40px; } .glass-card { padding: 22px 16px; border-radius: 36px 16px 36px 16px; } .section-title { font-size: 1.5rem; } .secure-text { font-size: 0.9rem; padding: 8px 16px; } .pass-value { font-size: 1.1rem; } .copy-btn { padding: 8px 14px; font-size: 0.8rem; } }
     @media (max-width: 400px) { .pass-row { flex-direction: column; align-items: stretch; gap: 10px; } .pass-value { justify-content: center; } }
+    
+    .lang-switch-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1100;
+      background: rgba(20, 35, 70, 0.85);
+      backdrop-filter: blur(10px);
+      border: 2px solid #6ab0ff;
+      border-radius: 60px;
+      padding: 10px 20px;
+      font-weight: 800;
+      font-size: 1rem;
+      color: #e0f0ff;
+      cursor: pointer;
+      box-shadow: 0 0 15px #3f8eff, 0 4px 0 #0a1620;
+      transition: 0.1s linear;
+      letter-spacing: 1px;
+      font-family: monospace;
+    }
+    .lang-switch-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #0a1620, 0 0 15px #3f8eff; }
+    @media (max-width: 500px) { .lang-switch-btn { padding: 6px 14px; font-size: 0.8rem; top: 12px; right: 12px; } }
   </style>
 </head>
 <body>
-<div class="stars" id="starsContainer"><div class="star" style="width: 1.21657px; height: 1.21657px; left: 53.7636%; top: 32.3525%; animation-delay: 4.18919s;"></div><div class="star" style="width: 2.80189px; height: 2.80189px; left: 90.6946%; top: 0.758193%; animation-delay: 2.97223s;"></div><div class="star" style="width: 2.25606px; height: 2.25606px; left: 84.4918%; top: 43.6197%; animation-delay: 0.701541s;"></div><div class="star" style="width: 1.71768px; height: 1.71768px; left: 88.9314%; top: 2.49762%; animation-delay: 2.07833s;"></div><div class="star" style="width: 2.53393px; height: 2.53393px; left: 44.9453%; top: 47.8815%; animation-delay: 4.46193s;"></div><div class="star" style="width: 3.52043px; height: 3.52043px; left: 6.54025%; top: 66.6029%; animation-delay: 0.759045s;"></div><div class="star" style="width: 1.92727px; height: 1.92727px; left: 62.6206%; top: 30.0278%; animation-delay: 4.26605s;"></div><div class="star" style="width: 1.71284px; height: 1.71284px; left: 23.4599%; top: 95.1276%; animation-delay: 2.35378s;"></div><div class="star" style="width: 1.60599px; height: 1.60599px; left: 67.098%; top: 24.1892%; animation-delay: 1.32588s;"></div><div class="star" style="width: 1.17169px; height: 1.17169px; left: 97.1831%; top: 4.14715%; animation-delay: 4.57572s;"></div><div class="star" style="width: 1.82735px; height: 1.82735px; left: 14.4458%; top: 31.6711%; animation-delay: 1.54388s;"></div><div class="star" style="width: 1.6191px; height: 1.6191px; left: 20.0616%; top: 20.154%; animation-delay: 3.9942s;"></div><div class="star" style="width: 1.08221px; height: 1.08221px; left: 84.9178%; top: 86.3626%; animation-delay: 3.26552s;"></div><div class="star" style="width: 2.34732px; height: 2.34732px; left: 0.39464%; top: 74.1807%; animation-delay: 4.49447s;"></div><div class="star" style="width: 1.14445px; height: 1.14445px; left: 57.5328%; top: 86.7682%; animation-delay: 4.4159s;"></div><div class="star" style="width: 3.17474px; height: 3.17474px; left: 16.3035%; top: 51.7988%; animation-delay: 4.06707s;"></div><div class="star" style="width: 1.06977px; height: 1.06977px; left: 69.2324%; top: 76.157%; animation-delay: 3.79283s;"></div><div class="star" style="width: 3.17991px; height: 3.17991px; left: 16.7144%; top: 2.29007%; animation-delay: 0.334578s;"></div><div class="star" style="width: 3.68577px; height: 3.68577px; left: 87.1076%; top: 38.7509%; animation-delay: 4.34145s;"></div><div class="star" style="width: 2.73796px; height: 2.73796px; left: 89.8526%; top: 26.9168%; animation-delay: 3.22411s;"></div><div class="star" style="width: 3.92947px; height: 3.92947px; left: 58.9376%; top: 25.6441%; animation-delay: 1.56394s;"></div><div class="star" style="width: 3.05544px; height: 3.05544px; left: 16.7586%; top: 56.9473%; animation-delay: 2.03156s;"></div><div class="star" style="width: 1.64436px; height: 1.64436px; left: 4.98648%; top: 59.4505%; animation-delay: 0.521623s;"></div><div class="star" style="width: 2.6141px; height: 2.6141px; left: 12.1737%; top: 78.3834%; animation-delay: 1.31539s;"></div><div class="star" style="width: 2.30529px; height: 2.30529px; left: 29.167%; top: 93.9455%; animation-delay: 2.01407s;"></div><div class="star" style="width: 3.12554px; height: 3.12554px; left: 16.7648%; top: 48.1285%; animation-delay: 2.83213s;"></div><div class="star" style="width: 3.47262px; height: 3.47262px; left: 86.6509%; top: 13.1355%; animation-delay: 1.38793s;"></div><div class="star" style="width: 3.38385px; height: 3.38385px; left: 2.25779%; top: 37.9619%; animation-delay: 3.14872s;"></div><div class="star" style="width: 1.94392px; height: 1.94392px; left: 46.4498%; top: 11.252%; animation-delay: 3.77097s;"></div><div class="star" style="width: 3.04216px; height: 3.04216px; left: 35.8627%; top: 33.8408%; animation-delay: 3.38767s;"></div><div class="star" style="width: 3.28584px; height: 3.28584px; left: 48.2997%; top: 45.0258%; animation-delay: 2.62662s;"></div><div class="star" style="width: 2.59051px; height: 2.59051px; left: 22.7537%; top: 5.861%; animation-delay: 0.610339s;"></div><div class="star" style="width: 2.16229px; height: 2.16229px; left: 43.175%; top: 87.2343%; animation-delay: 1.43819s;"></div><div class="star" style="width: 2.3241px; height: 2.3241px; left: 38.9269%; top: 1.66564%; animation-delay: 0.447079s;"></div><div class="star" style="width: 2.43655px; height: 2.43655px; left: 23.9327%; top: 89.4648%; animation-delay: 1.74723s;"></div><div class="star" style="width: 2.00437px; height: 2.00437px; left: 94.7316%; top: 38.4703%; animation-delay: 2.41072s;"></div><div class="star" style="width: 3.75946px; height: 3.75946px; left: 25.9366%; top: 79.2062%; animation-delay: 1.93299s;"></div><div class="star" style="width: 3.19148px; height: 3.19148px; left: 56.7914%; top: 79.0603%; animation-delay: 4.96257s;"></div><div class="star" style="width: 3.78872px; height: 3.78872px; left: 93.1327%; top: 16.9849%; animation-delay: 4.67796s;"></div><div class="star" style="width: 3.70729px; height: 3.70729px; left: 24.3896%; top: 8.4965%; animation-delay: 2.22077s;"></div><div class="star" style="width: 2.13537px; height: 2.13537px; left: 91.8138%; top: 40.1738%; animation-delay: 3.42148s;"></div><div class="star" style="width: 3.33919px; height: 3.33919px; left: 62.993%; top: 12.8809%; animation-delay: 1.89339s;"></div><div class="star" style="width: 3.87225px; height: 3.87225px; left: 72.0665%; top: 99.2145%; animation-delay: 3.35632s;"></div><div class="star" style="width: 1.36061px; height: 1.36061px; left: 58.6728%; top: 18.923%; animation-delay: 1.0728s;"></div><div class="star" style="width: 1.43881px; height: 1.43881px; left: 1.33612%; top: 61.0291%; animation-delay: 1.54958s;"></div><div class="star" style="width: 1.83141px; height: 1.83141px; left: 50.4224%; top: 32.8489%; animation-delay: 1.23936s;"></div><div class="star" style="width: 3.6176px; height: 3.6176px; left: 49.9246%; top: 49.3331%; animation-delay: 2.70005s;"></div><div class="star" style="width: 2.72194px; height: 2.72194px; left: 50.829%; top: 16.4103%; animation-delay: 1.34652s;"></div><div class="star" style="width: 1.10748px; height: 1.10748px; left: 54.9711%; top: 14.7809%; animation-delay: 4.53091s;"></div><div class="star" style="width: 2.57414px; height: 2.57414px; left: 86.8588%; top: 14.1932%; animation-delay: 4.96365s;"></div><div class="star" style="width: 1.15767px; height: 1.15767px; left: 7.46795%; top: 44.426%; animation-delay: 0.419965s;"></div><div class="star" style="width: 3.87164px; height: 3.87164px; left: 8.57229%; top: 33.8626%; animation-delay: 3.16455s;"></div><div class="star" style="width: 2.9737px; height: 2.9737px; left: 43.4616%; top: 35.3009%; animation-delay: 4.0364s;"></div><div class="star" style="width: 1.22832px; height: 1.22832px; left: 49.5492%; top: 81.0063%; animation-delay: 1.04748s;"></div><div class="star" style="width: 2.51289px; height: 2.51289px; left: 51.8817%; top: 7.47615%; animation-delay: 4.13915s;"></div><div class="star" style="width: 3.67348px; height: 3.67348px; left: 63.7321%; top: 21.0297%; animation-delay: 0.589372s;"></div><div class="star" style="width: 3.93217px; height: 3.93217px; left: 65.3314%; top: 70.0847%; animation-delay: 4.19189s;"></div><div class="star" style="width: 1.21596px; height: 1.21596px; left: 6.2928%; top: 27.6545%; animation-delay: 1.07997s;"></div><div class="star" style="width: 2.82657px; height: 2.82657px; left: 57.7364%; top: 33.3151%; animation-delay: 4.02659s;"></div><div class="star" style="width: 2.40477px; height: 2.40477px; left: 12.0484%; top: 99.2763%; animation-delay: 2.5998s;"></div><div class="star" style="width: 2.07804px; height: 2.07804px; left: 23.646%; top: 64.3543%; animation-delay: 4.99137s;"></div><div class="star" style="width: 2.82637px; height: 2.82637px; left: 50.9964%; top: 71.9398%; animation-delay: 4.2735s;"></div><div class="star" style="width: 3.82172px; height: 3.82172px; left: 86.4342%; top: 44.2381%; animation-delay: 3.57688s;"></div><div class="star" style="width: 2.36552px; height: 2.36552px; left: 44.1295%; top: 88.8075%; animation-delay: 4.81107s;"></div><div class="star" style="width: 3.60621px; height: 3.60621px; left: 34.4494%; top: 77.4962%; animation-delay: 3.63963s;"></div><div class="star" style="width: 2.61425px; height: 2.61425px; left: 79.3834%; top: 29.1611%; animation-delay: 3.16841s;"></div><div class="star" style="width: 3.52007px; height: 3.52007px; left: 71.3669%; top: 32.9612%; animation-delay: 2.74003s;"></div><div class="star" style="width: 2.62468px; height: 2.62468px; left: 31.9406%; top: 66.4559%; animation-delay: 3.30596s;"></div><div class="star" style="width: 2.69094px; height: 2.69094px; left: 46.2887%; top: 3.80728%; animation-delay: 1.7732s;"></div><div class="star" style="width: 2.19367px; height: 2.19367px; left: 7.79719%; top: 30.912%; animation-delay: 0.712018s;"></div><div class="star" style="width: 3.02022px; height: 3.02022px; left: 94.375%; top: 2.6308%; animation-delay: 4.79482s;"></div><div class="star" style="width: 2.16431px; height: 2.16431px; left: 73.0704%; top: 47.7239%; animation-delay: 3.96842s;"></div><div class="star" style="width: 1.95949px; height: 1.95949px; left: 89.8327%; top: 76.0307%; animation-delay: 1.6192s;"></div><div class="star" style="width: 3.89245px; height: 3.89245px; left: 72.0455%; top: 9.78161%; animation-delay: 4.39787s;"></div><div class="star" style="width: 1.71645px; height: 1.71645px; left: 39.9978%; top: 42.9645%; animation-delay: 3.07011s;"></div><div class="star" style="width: 1.78629px; height: 1.78629px; left: 31.1491%; top: 31.6937%; animation-delay: 0.85316s;"></div><div class="star" style="width: 1.91992px; height: 1.91992px; left: 23.83%; top: 9.79388%; animation-delay: 2.91307s;"></div><div class="star" style="width: 3.47244px; height: 3.47244px; left: 20.928%; top: 47.1163%; animation-delay: 0.0126688s;"></div><div class="star" style="width: 1.99647px; height: 1.99647px; left: 75.6334%; top: 61.7312%; animation-delay: 2.1792s;"></div><div class="star" style="width: 1.35039px; height: 1.35039px; left: 65.2647%; top: 95.971%; animation-delay: 2.29284s;"></div><div class="star" style="width: 3.3475px; height: 3.3475px; left: 33.862%; top: 31.4752%; animation-delay: 4.2436s;"></div><div class="star" style="width: 2.5268px; height: 2.5268px; left: 3.08406%; top: 92.0525%; animation-delay: 1.78764s;"></div><div class="star" style="width: 1.35393px; height: 1.35393px; left: 64.2808%; top: 87.5459%; animation-delay: 1.48886s;"></div><div class="star" style="width: 1.11389px; height: 1.11389px; left: 66.3918%; top: 25.5259%; animation-delay: 4.47225s;"></div><div class="star" style="width: 1.52289px; height: 1.52289px; left: 64.8856%; top: 94.7804%; animation-delay: 4.79293s;"></div><div class="star" style="width: 3.31129px; height: 3.31129px; left: 8.04743%; top: 83.974%; animation-delay: 0.904267s;"></div><div class="star" style="width: 3.82872px; height: 3.82872px; left: 25.2119%; top: 95.7801%; animation-delay: 2.27698s;"></div><div class="star" style="width: 1.90904px; height: 1.90904px; left: 48.2697%; top: 23.4961%; animation-delay: 4.2761s;"></div><div class="star" style="width: 1.28319px; height: 1.28319px; left: 12.9826%; top: 90.8563%; animation-delay: 0.186029s;"></div><div class="star" style="width: 3.08863px; height: 3.08863px; left: 42.4361%; top: 33.5412%; animation-delay: 0.966897s;"></div><div class="star" style="width: 3.44719px; height: 3.44719px; left: 18.2571%; top: 81.4225%; animation-delay: 2.42429s;"></div><div class="star" style="width: 1.51769px; height: 1.51769px; left: 91.0063%; top: 82.2503%; animation-delay: 4.83916s;"></div><div class="star" style="width: 1.33416px; height: 1.33416px; left: 61.9612%; top: 20.6567%; animation-delay: 2.85857s;"></div><div class="star" style="width: 1.80416px; height: 1.80416px; left: 10.5491%; top: 30.3793%; animation-delay: 4.23353s;"></div><div class="star" style="width: 3.32085px; height: 3.32085px; left: 64.2136%; top: 71.8782%; animation-delay: 4.66979s;"></div><div class="star" style="width: 3.58386px; height: 3.58386px; left: 33.6926%; top: 57.6406%; animation-delay: 4.82978s;"></div><div class="star" style="width: 2.72011px; height: 2.72011px; left: 31.8711%; top: 95.8316%; animation-delay: 0.145917s;"></div><div class="star" style="width: 3.05466px; height: 3.05466px; left: 81.031%; top: 18.595%; animation-delay: 1.26135s;"></div><div class="star" style="width: 1.21051px; height: 1.21051px; left: 73.2805%; top: 60.787%; animation-delay: 1.90884s;"></div><div class="star" style="width: 3.52353px; height: 3.52353px; left: 96.6977%; top: 35.6321%; animation-delay: 3.83825s;"></div></div>
+<div class="stars" id="starsContainer"></div>
 <div class="nebula nebula1"></div>
 <div class="nebula nebula2"></div>
 <div class="nebula nebula3"></div>
 
+<button class="lang-switch-btn" id="langToggleBtn">EN</button>
+
 <div class="cosmic-container">
-  <!-- КАРТОЧКА: ПАРОЛЬ И ЗАЩИЩЁННЫЙ ДОСТУП -->
   <div class="glass-card">
     <div class="secure-header">
       <div class="secure-icon">🔐</div>
-      <div class="secure-text">ПАРОЛЬ ДЛЯ CHATGPT</div>
+      <div class="secure-text" data-trans-key="secure_title">ПАРОЛЬ ДЛЯ CHATGPT</div>
     </div>
-
     <div class="password-wrapper" oncontextmenu="return false;">
       <div class="pass-row">
-        <span class="pass-label">🌠 Пароль</span>
-        <span class="pass-value" id="displayPasswordContainer">L7h-5GA-7fE-uyP<button class="copy-btn" data-copy="9Iw_-A2eIHje">КОПИРОВАТЬ</button></span>
+        <span class="pass-label" data-trans-key="pass_label">🌠 Пароль</span>
+        <span class="pass-value" id="displayPasswordContainer"><button class="copy-btn" data-copy="H50c0p-8Aitu">КОПИРОВАТЬ</button></span>
       </div>
     </div>
-
     <div class="meta-info">
-      <div class="update-badge">
-        🔄 изменено <span id="lastUpdateDate">15.04</span>
-      </div>
-      <div class="sub-badge">✅ Подписка до 10.05</div>
+      <div class="update-badge" data-trans-key="update_badge">🔄 изменено <span id="lastUpdateDate">15.04</span></div>
+      <div class="sub-badge" data-trans-key="sub_badge">✅ Подписка до 10.05</div>
     </div>
-
-    <div class="fake-log">⚙️ активный мониторинг · попытки взлома логируются</div>
-
+    <div class="fake-log" data-trans-key="fake_log">⚙️ активный мониторинг · попытки взлома логируются</div>
     <div class="secret-area">
       <button class="secret-btn" id="secretEditTrigger">⚡⚡⚡</button>
     </div>
   </div>
 
-  <!-- КАРТОЧКА: ИНСТРУКЦИЯ (без изменений) -->
   <div class="glass-card instruction-block">
-    <div class="section-title"><span>📘</span> ОБЯЗАТЕЛЬНО К ПРОЧТЕНИЮ</div>
-
+    <div class="section-title" data-trans-key="must_read_title"><span>📘</span> ОБЯЗАТЕЛЬНО К ПРОЧТЕНИЮ</div>
     <div class="warning-box" style="border-left-color: #ff3b3b; box-shadow: 0 6px 0 #4a1a2e, 0 0 20px #ff3b3b;">
-      <div class="warning-title" style="color: #ff9e9e;">‼️ НАРУШЕНИЕ = БАН</div>
-      <div class="list-item"><span class="list-icon">❗</span><span>Пожалуйста, не меняйте пароль и другие данные, иначе лишитесь аккаунта. Я напишу в поддержку, что вы нарушаете правила платформы, и вас заблокируют на FunPay!!</span></div>
-      <div class="list-item"><span class="list-icon">🚫</span><span><strong>!!НЕ СПАМЬТЕ В ЧАТАХ!!</strong></span></div>
-      <div class="list-item"><span class="list-icon">🚫</span><span><strong>!!НЕЛЬЗЯ СОЗДАВАТЬ Ключи безопасности и Authenticator app !!</strong></span></div>
+      <div class="warning-title" data-trans-key="warn_violation_title">‼️ НАРУШЕНИЕ = БАН</div>
+      <div class="list-item"><span class="list-icon">❗</span><span data-trans-key="warn_violation_text">Пожалуйста, не меняйте пароль и другие данные, иначе лишитесь аккаунта. Я напишу в поддержку, что вы нарушаете правила платформы, и вас заблокируют на FunPay!!</span></div>
+      <div class="list-item"><span class="list-icon">🚫</span><span><strong data-trans-key="warn_no_spam">!!НЕ СПАМЬТЕ В ЧАТАХ!!</strong></span></div>
+      <div class="list-item"><span class="list-icon">🚫</span><span><strong data-trans-key="warn_no_keys">!!НЕЛЬЗЯ СОЗДАВАТЬ Ключи безопасности и Authenticator app !!</strong></span></div>
     </div>
-
     <div class="warning-box">
-      <div class="warning-title">‼️ КОД В АККАУНТ</div>
-      <div class="list-item"><span class="list-icon">🔑</span><span>Чтобы получить код, напишите в чат FunPay <strong>!cd</strong> (другие команды не работают), и вы получите код. Учтите, что почта другая, но код верный (это пересылка с моей рабочей почты). Выглядит так: <strong style="color:#aad0ff;">📧 arsenev.2005@internet.ru: ВАШ КОД</strong>.</span></div>
-      <div class="list-item"><span class="list-icon">🔄</span><span>Если код один и тот же или вы не смогли войти — это защита от ChatGPT. Просто авторизуйтесь заново и желательно закройте вкладку, открыв новую.</span></div>
+      <div class="warning-title" data-trans-key="code_title">‼️ КОД В АККАУНТ</div>
+      <div class="list-item"><span class="list-icon">🔑</span><span data-trans-key="code_desc">Чтобы получить код, напишите в чат FunPay <strong>!cd</strong> (другие команды не работают), и вы получите код. Учтите, что почта другая, но код верный (это пересылка с моей рабочей почты). Выглядит так: <strong style="color:#aad0ff;">📧 arsenev.2005@internet.ru: ВАШ КОД</strong>.</span></div>
+      <div class="list-item"><span class="list-icon">🔄</span><span data-trans-key="code_retry">Если код один и тот же или вы не смогли войти — это защита от ChatGPT. Просто авторизуйтесь заново и желательно закройте вкладку, открыв новую.</span></div>
     </div>
-
     <div class="divider"></div>
-
-    <div class="section-title" style="font-size:1.5rem; margin-top:10px;"><span>⚠️</span> ВАЖНОЕ</div>
-    <div class="list-item"><span class="list-icon">🚫</span><span>Не меняйте пароль и данные аккаунта.</span></div>
-    <div class="list-item"><span class="list-icon">🚫</span><span>Не изменяйте настройки безопасности.</span></div>
-    <div class="list-item"><span class="list-icon">🔃</span><span>Возможен вылет из аккаунта — это делается для безопасности (можете сразу перезайти).</span></div>
-    <div class="list-item"><span class="list-icon">👥</span><span>Диалоги и история могут быть общими.</span></div>
-    <div class="list-item"><span class="list-icon">🌍</span><span>Возможно одновременное использование другими пользователями, из-за этого бывают лимиты. Я тут ни при чём ¯\_(ツ)_/¯</span></div>
-    <div class="list-item"><span class="list-icon">🔄</span><span>Если данные будут изменены, доступ может быть утерян без компенсации.</span></div>
-    <div class="list-item"><span class="list-icon">📃</span><span>Аккаунтом пользуются более 75+ человек, его могут заблокировать в любое время. Избегайте подозрительных действий. Гарантия 12 часа . Если аккаунт заблокируют компенсации не будет и возрата тоже . P.S. Я не винноват если аккаунт заблокируют , вся отвественность за блокировку лежит на абуз общих аккаунтов (сам Chat GPT запрещает общие аккаунты)   </span></div>
-    <div class="list-item"><span class="list-icon">🤖</span><span>Если появляется сообщение «Кто-то пытается войти с другого устройства», нажмите «Подтвердить», чтобы другие пользователи могли использовать ChatGPT.</span></div>
-    <div class="list-item"><span class="list-icon">💸</span><span>Цена очень маленькая, и я не буду подробно отвечать на вопросы — 80% ответов уже есть здесь. Уважайте своё и моё время. Благодарю за понимание!</span></div>
-    <div class="list-item"><span class="list-icon">📷</span><span>Сделал видео инструкцию как выглядит вход в аккаунт:</div>
-    <a href="https://youtu.be/ZwmIANUI0p0" target="_blank" class="link-button">ВИДЕО</a>
-
+    <div class="section-title" style="font-size:1.5rem; margin-top:10px;" data-trans-key="important_title"><span>⚠️</span> ВАЖНОЕ</div>
+    <div class="list-item"><span class="list-icon">🚫</span><span data-trans-key="imp1">Не меняйте пароль и данные аккаунта.</span></div>
+    <div class="list-item"><span class="list-icon">🚫</span><span data-trans-key="imp2">Не изменяйте настройки безопасности.</span></div>
+    <div class="list-item"><span class="list-icon">🔃</span><span data-trans-key="imp3">Возможен вылет из аккаунта — это делается для безопасности (можете сразу перезайти).</span></div>
+    <div class="list-item"><span class="list-icon">👥</span><span data-trans-key="imp4">Диалоги и история могут быть общими.</span></div>
+    <div class="list-item"><span class="list-icon">🌍</span><span data-trans-key="imp5">Возможно одновременное использование другими пользователями, из-за этого бывают лимиты. Я тут ни при чём ¯\_(ツ)_/¯</span></div>
+    <div class="list-item"><span class="list-icon">🔄</span><span data-trans-key="imp6">Если данные будут изменены, доступ может быть утерян без компенсации.</span></div>
+    <div class="list-item"><span class="list-icon">📃</span><span data-trans-key="imp7">Аккаунтом пользуются более 75+ человек, его могут заблокировать в любое время. Избегайте подозрительных действий. Гарантия 12 часа . Если аккаунт заблокируют компенсации не будет и возрата тоже . P.S. Я не винноват если аккаунт заблокируют , вся отвественность за блокировку лежит на абуз общих аккаунтов (сам Chat GPT запрещает общие аккаунты)</span></div>
+    <div class="list-item"><span class="list-icon">🤖</span><span data-trans-key="imp8">Если появляется сообщение «Кто-то пытается войти с другого устройства», нажмите «Подтвердить», чтобы другие пользователи могли использовать ChatGPT.</span></div>
+    <div class="list-item"><span class="list-icon">💸</span><span data-trans-key="imp9">Цена очень маленькая, и я не буду подробно отвечать на вопросы — 80% ответов уже есть здесь. Уважайте своё и моё время. Благодарю за понимание!</span></div>
+    <div class="list-item"><span class="list-icon">📷</span><span data-trans-key="video_label">Сделал видео инструкцию как выглядит вход в аккаунт:</span></div>
+    <a href="https://youtu.be/ZwmIANUI0p0" target="_blank" class="link-button" data-trans-key="video_btn">ВИДЕО</a>
     <div class="divider"></div>
-    <div class="section-title" style="font-size:1.5rem;"><span>⭐️</span> ПРОСЬБА</div>
-    <div class="list-item"><span class="list-icon">💬</span><span>Если всё устраивает и вы довольны покупкой — оставьте, пожалуйста, отзыв.</span></div>
-
+    <div class="section-title" style="font-size:1.5rem;" data-trans-key="request_title"><span>⭐️</span> ПРОСЬБА</div>
+    <div class="list-item"><span class="list-icon">💬</span><span data-trans-key="request_text">Если всё устраивает и вы довольны покупкой — оставьте, пожалуйста, отзыв.</span></div>
     <div class="divider"></div>
-    <div class="section-title" style="font-size:1.5rem;"><span>😴</span> ПОДДЕРЖКА</div>
-    <div class="list-item"><span class="list-icon">🕒</span><span>Я онлайн с 11:00 до 01:00 по московскому времени. В остальное время отдыхаю, система полностью автоматизирована. Если есть реальная проблема — пишите, но отвечаю не сразу. 80% проблем решаются с вашей стороны. Заранее благодарю за понимание!</span></div>
-
+    <div class="section-title" style="font-size:1.5rem;" data-trans-key="support_title"><span>😴</span> ПОДДЕРЖКА</div>
+    <div class="list-item"><span class="list-icon">🕒</span><span data-trans-key="support_text">Я онлайн с 11:00 до 01:00 по московскому времени. В остальное время отдыхаю, система полностью автоматизирована. Если есть реальная проблема — пишите, но отвечаю не сразу. 80% проблем решаются с вашей стороны. Заранее благодарю за понимание!</span></div>
     <div class="divider"></div>
-    <div class="section-title" style="font-size:1.5rem;"><span>🔰</span> ЛИЧНЫЙ АККАУНТ</div>
-    <div class="list-item"><span class="list-icon">✨</span><span>Если хотите иметь личный аккаунт с полным доступом и без геморроя , можете купить тут:</span></div>
-    <a href="https://clck.ru/3T4pGg" target="_blank" class="link-button">КУПИТЬ💸</a>
-    
+    <div class="section-title" style="font-size:1.5rem;" data-trans-key="personal_title"><span>🔰</span> ЛИЧНЫЙ АККАУНТ</div>
+    <div class="list-item"><span class="list-icon">✨</span><span data-trans-key="personal_text">Если хотите иметь личный аккаунт с полным доступом и без геморроя , можете купить тут:</span></div>
+    <a href="https://clck.ru/3T4pGg" target="_blank" class="link-button" data-trans-key="buy_btn">КУПИТЬ💸</a>
     <div class="divider"></div>
-    <div class="section-title" style="font-size:1.5rem;"><span>🔰🔰🔰</span> ДЕШЕВАЯ ПОДПИСКА PLUS </div>
-    <div class="list-item"><span class="list-icon">✨</span><span>Если хотите купить подписку вместо общего аккаунта , можете купить тут:</span></div>
-    <a href="https://funpay.com/lots/offer?id=67606610" target="_blank" class="link-button">КУПИТЬ💸</a>
-
+    <div class="section-title" style="font-size:1.5rem;" data-trans-key="sub_plus_title"><span>🔰🔰🔰</span> ДЕШЕВАЯ ПОДПИСКА PLUS</div>
+    <div class="list-item"><span class="list-icon">✨</span><span data-trans-key="sub_plus_text">Если хотите купить подписку вместо общего аккаунта , можете купить тут:</span></div>
+    <a href="https://funpay.com/lots/offer?id=67606610" target="_blank" class="link-button" data-trans-key="sub_plus_btn">КУПИТЬ💸</a>
     <div class="divider"></div>
-    <div class="section-title" style="font-size:1.5rem;"><span>❓</span> ПОДПИСКА МОЖЕТ СЛЕТЕТЬ</div>
-    <div class="list-item"><span class="list-icon">⚠️</span><span>— Использование VPN для входа из разных стран или отсутствие VPN при входе из России. В таких случаях возврата не будет.</span></div>
+    <div class="section-title" style="font-size:1.5rem;" data-trans-key="vpn_title"><span>❓</span> ПОДПИСКА МОЖЕТ СЛЕТЕТЬ</div>
+    <div class="list-item"><span class="list-icon">⚠️</span><span data-trans-key="vpn_text">— Использование VPN для входа из разных стран или отсутствие VPN при входе из России. В таких случаях возврата не будет.</span></div>
   </div>
 </div>
 
-<!-- Модальные окна -->
 <div class="modal-overlay" id="authModal">
   <div class="modal-card">
     <span class="close-icon" id="closeAuthModal">×</span>
-    <h3>🌌 Доступ</h3>
-    <p style="margin-bottom:16px; color:#b8d4ff; font-weight:600;">Введите мастер-пароль</p>
-    <input type="password" id="masterPasswordInput" class="modal-input" placeholder="Пароль" autocomplete="off">
-    <button class="modal-btn" id="submitMasterPass">Проверить</button>
+    <h3 data-trans-key="modal_access_title">🌌 Доступ</h3>
+    <p style="margin-bottom:16px; color:#b8d4ff; font-weight:600;" data-trans-key="modal_enter_pass">Введите мастер-пароль</p>
+    <input type="password" id="masterPasswordInput" class="modal-input" placeholder="Пароль" autocomplete="off" data-trans-placeholder-key="modal_pass_placeholder">
+    <button class="modal-btn" id="submitMasterPass" data-trans-key="modal_verify_btn">Проверить</button>
     <div id="authError" class="error-msg"></div>
-    <button class="modal-btn secondary" id="cancelAuthBtn">Отмена</button>
+    <button class="modal-btn secondary" id="cancelAuthBtn" data-trans-key="modal_cancel_btn">Отмена</button>
   </div>
 </div>
 
 <div class="modal-overlay" id="editModal">
   <div class="modal-card">
     <span class="close-icon" id="closeEditModal">×</span>
-    <h3>✏️ Изменить данные</h3>
-    <label style="font-weight:700; color:#b8d4ff;">Новый пароль:</label>
-    <input type="text" id="newPasswordField" class="modal-input" placeholder="Пароль">
-    <label style="font-weight:700; color:#b8d4ff;">Дата изменения (дд.мм):</label>
-    <input type="text" id="newDateField" class="modal-input" placeholder="например 12.04" maxlength="5">
-    <button class="modal-btn" id="saveChangesBtn">💾 Сохранить</button>
-    <p style="color:#a0c0ff; font-size:12px; margin-top:10px;">Изменения сохранятся в браузере</p>
-    <button class="modal-btn secondary" id="cancelEditBtn">Закрыть</button>
+    <h3 data-trans-key="edit_title">✏️ Изменить данные</h3>
+    <label style="font-weight:700; color:#b8d4ff;" data-trans-key="edit_new_pass_label">Новый пароль:</label>
+    <input type="text" id="newPasswordField" class="modal-input" placeholder="Пароль" data-trans-placeholder-key="edit_pass_placeholder">
+    <label style="font-weight:700; color:#b8d4ff;" data-trans-key="edit_date_label">Дата изменения (дд.мм):</label>
+    <input type="text" id="newDateField" class="modal-input" placeholder="например 12.04" maxlength="5" data-trans-placeholder-key="edit_date_placeholder">
+    <button class="modal-btn" id="saveChangesBtn" data-trans-key="edit_save_btn">💾 Сохранить</button>
+    <p style="color:#a0c0ff; font-size:12px; margin-top:10px;" data-trans-key="edit_save_info">Изменения сохранятся в браузере</p>
+    <button class="modal-btn secondary" id="cancelEditBtn" data-trans-key="edit_close_btn">Закрыть</button>
   </div>
 </div>
 
 <script>
   (function(){
-    "use strict";
-
-    // Генерация звёзд
+    // звёзды
     const starsContainer = document.getElementById('starsContainer');
     for (let i = 0; i < 100; i++) {
       const star = document.createElement('div');
@@ -198,7 +201,7 @@
       starsContainer.appendChild(star);
     }
 
-    // ---------- ЗАЩИЩЁННОЕ ХРАНЕНИЕ (localStorage с шифрованием) ----------
+    // защищённое хранилище пароля
     const SECRET_SALT = 'CosmoSalt_2025';
     function encrypt(data) { return btoa(unescape(encodeURIComponent(data + SECRET_SALT))); }
     function decrypt(enc) {
@@ -226,13 +229,10 @@
       } catch(e) { return null; }
     }
 
-    // ---------- НОВЫЕ ЗНАЧЕНИЯ ПО УМОЛЧАНИЮ (меняйте здесь) ----------
-    const DEFAULT_PASS = '6cz-3hd-Uzk-BY';
+    const DEFAULT_PASS = 'H50c0p-8Aitu';
     const DEFAULT_DATE = '15.04';
-
     let currentPass = DEFAULT_PASS;
     let currentDate = DEFAULT_DATE;
-
     const passContainer = document.getElementById('displayPasswordContainer');
     const dateSpan = document.getElementById('lastUpdateDate');
 
@@ -242,23 +242,19 @@
       const btn = document.createElement('button');
       btn.className = 'copy-btn';
       btn.setAttribute('data-copy', currentPass);
-      btn.innerHTML = 'КОПИРОВАТЬ';
+      btn.innerHTML = (window.currentLang === 'en') ? 'COPY' : 'КОПИРОВАТЬ';
       passContainer.appendChild(btn);
       dateSpan.textContent = currentDate;
     }
 
-    // ---------- ИНИЦИАЛИЗАЦИЯ С АВТОМАТИЧЕСКИМ СБРОСОМ ПРИ ИЗМЕНЕНИИ DEFAULT ----------
     (function init() {
       const secure = loadSecure();
-      // Если в localStorage есть данные и они совпадают с текущими DEFAULT – используем их.
       if (secure && secure.p === DEFAULT_PASS && secure.d === DEFAULT_DATE) {
         currentPass = secure.p;
         currentDate = secure.d;
         render();
         return;
       }
-      
-      // Если данных нет или они не совпадают с DEFAULT – пробуем подгрузить config.json (опционально)
       fetch('./config.json?t=' + Date.now())
         .then(resp => resp.ok ? resp.json() : Promise.reject())
         .then(cfg => {
@@ -271,18 +267,17 @@
         })
         .finally(() => {
           render();
-          saveSecure(currentPass, currentDate);   // сохраняем актуальные значения
+          saveSecure(currentPass, currentDate);
         });
     })();
 
-    // Копирование
     document.addEventListener('click', (e) => {
       const btn = e.target.closest('.copy-btn');
       if (!btn) return;
       const text = btn.getAttribute('data-copy');
       navigator.clipboard?.writeText(text).then(() => {
-        btn.innerHTML = '✅ Скопировано!';
-        setTimeout(() => btn.innerHTML = 'КОПИРОВАТЬ', 1200);
+        btn.innerHTML = (window.currentLang === 'en') ? '✅ Copied!' : '✅ Скопировано!';
+        setTimeout(() => btn.innerHTML = (window.currentLang === 'en') ? 'COPY' : 'КОПИРОВАТЬ', 1200);
       }).catch(() => {
         const ta = document.createElement('textarea');
         ta.value = text;
@@ -291,11 +286,10 @@
         document.execCommand('copy');
         document.body.removeChild(ta);
         btn.innerHTML = '✅';
-        setTimeout(() => btn.innerHTML = 'КОПИРОВАТЬ', 1000);
+        setTimeout(() => btn.innerHTML = (window.currentLang === 'en') ? 'COPY' : 'КОПИРОВАТЬ', 1000);
       });
     });
 
-    // Скрытая кнопка и модалки
     const authModal = document.getElementById('authModal');
     const editModal = document.getElementById('editModal');
     const masterInput = document.getElementById('masterPasswordInput');
@@ -319,7 +313,7 @@
         document.getElementById('newDateField').value = currentDate;
         editModal.style.display = 'flex';
       } else {
-        authError.textContent = '❌ Неверный пароль!';
+        authError.textContent = (window.currentLang === 'en') ? '❌ Wrong password!' : '❌ Неверный пароль!';
         masterInput.style.borderColor = '#ff4f75';
         setTimeout(() => masterInput.style.borderColor = '', 800);
       }
@@ -332,8 +326,8 @@
     document.getElementById('saveChangesBtn').addEventListener('click', () => {
       const newPass = document.getElementById('newPasswordField').value.trim();
       const newDate = document.getElementById('newDateField').value.trim();
-      if (!newPass || !newDate) return alert('Заполните все поля');
-      if (!/^\d{2}\.\d{2}$/.test(newDate)) return alert('Дата в формате дд.мм (например 13.04)');
+      if (!newPass || !newDate) return alert((window.currentLang === 'en') ? 'Fill all fields' : 'Заполните все поля');
+      if (!/^\d{2}\.\d{2}$/.test(newDate)) return alert((window.currentLang === 'en') ? 'Date format dd.mm (e.g. 13.04)' : 'Дата в формате дд.мм (например 13.04)');
       currentPass = newPass;
       currentDate = newDate;
       render();
@@ -345,11 +339,99 @@
       if (e.target === authModal) closeAuth();
       if (e.target === editModal) closeEdit();
     });
-
-    document.querySelector('.password-wrapper').addEventListener('contextmenu', e => e.preventDefault());
+    document.querySelector('.password-wrapper')?.addEventListener('contextmenu', e => e.preventDefault());
     document.addEventListener('selectstart', e => { if (!e.target.matches('input,textarea')) e.preventDefault(); });
-    setInterval(() => { const s = Date.now(); debugger; if (Date.now() - s > 100) console.log('%c🛡️ Защита активна', 'color:#ffb0c3'); }, 2000);
+
+    // ПЕРЕВОД: изначально русский, кнопка показывает EN
+    window.currentLang = 'ru';
+    const translations = {
+      ru: {
+        secure_title: "ПАРОЛЬ ДЛЯ CHATGPT", pass_label: "🌠 Пароль", update_badge: "🔄 изменено", sub_badge: "✅ Подписка до 10.05",
+        fake_log: "⚙️ активный мониторинг · попытки взлома логируются", must_read_title: "📘 ОБЯЗАТЕЛЬНО К ПРОЧТЕНИЮ",
+        warn_violation_title: "‼️ НАРУШЕНИЕ = БАН", warn_violation_text: "Пожалуйста, не меняйте пароль и другие данные, иначе лишитесь аккаунта. Я напишу в поддержку, что вы нарушаете правила платформы, и вас заблокируют на FunPay!!",
+        warn_no_spam: "!!НЕ СПАМЬТЕ В ЧАТАХ!!", warn_no_keys: "!!НЕЛЬЗЯ СОЗДАВАТЬ Ключи безопасности и Authenticator app !!",
+        code_title: "‼️ КОД В АККАУНТ", code_desc: "Чтобы получить код, напишите в чат FunPay <strong>!cd</strong> (другие команды не работают), и вы получите код. Учтите, что почта другая, но код верный (это пересылка с моей рабочей почты). Выглядит так: <strong style=\"color:#aad0ff;\">📧 arsenev.2005@internet.ru: ВАШ КОД</strong>.",
+        code_retry: "Если код один и тот же или вы не смогли войти — это защита от ChatGPT. Просто авторизуйтесь заново и желательно закройте вкладку, открыв новую.",
+        important_title: "⚠️ ВАЖНОЕ", imp1: "Не меняйте пароль и данные аккаунта.", imp2: "Не изменяйте настройки безопасности.", imp3: "Возможен вылет из аккаунта — это делается для безопасности (можете сразу перезайти).", imp4: "Диалоги и история могут быть общими.", imp5: "Возможно одновременное использование другими пользователями, из-за этого бывают лимиты. Я тут ни при чём ¯\\_(ツ)_/¯", imp6: "Если данные будут изменены, доступ может быть утерян без компенсации.", imp7: "Аккаунтом пользуются более 75+ человек, его могут заблокировать в любое время. Избегайте подозрительных действий. Гарантия 12 часа . Если аккаунт заблокируют компенсации не будет и возрата тоже . P.S. Я не винноват если аккаунт заблокируют , вся отвественность за блокировку лежит на абуз общих аккаунтов (сам Chat GPT запрещает общие аккаунты)", imp8: "Если появляется сообщение «Кто-то пытается войти с другого устройства», нажмите «Подтвердить», чтобы другие пользователи могли использовать ChatGPT.", imp9: "Цена очень маленькая, и я не буду подробно отвечать на вопросы — 80% ответов уже есть здесь. Уважайте своё и моё время. Благодарю за понимание!",
+        video_label: "Сделал видео инструкцию как выглядит вход в аккаунт:", video_btn: "ВИДЕО",
+        request_title: "⭐️ ПРОСЬБА", request_text: "Если всё устраивает и вы довольны покупкой — оставьте, пожалуйста, отзыв.",
+        support_title: "😴 ПОДДЕРЖКА", support_text: "Я онлайн с 11:00 до 01:00 по московскому времени. В остальное время отдыхаю, система полностью автоматизирована. Если есть реальная проблема — пишите, но отвечаю не сразу. 80% проблем решаются с вашей стороны. Заранее благодарю за понимание!",
+        personal_title: "🔰 ЛИЧНЫЙ АККАУНТ", personal_text: "Если хотите иметь личный аккаунт с полным доступом и без геморроя , можете купить тут:", buy_btn: "КУПИТЬ💸",
+        sub_plus_title: "🔰🔰🔰 ДЕШЕВАЯ ПОДПИСКА PLUS", sub_plus_text: "Если хотите купить подписку вместо общего аккаунта , можете купить тут:", sub_plus_btn: "КУПИТЬ💸",
+        vpn_title: "❓ ПОДПИСКА МОЖЕТ СЛЕТЕТЬ", vpn_text: "— Использование VPN для входа из разных стран или отсутствие VPN при входе из России. В таких случаях возврата не будет.",
+        modal_access_title: "🌌 Доступ", modal_enter_pass: "Введите мастер-пароль", modal_pass_placeholder: "Пароль", modal_verify_btn: "Проверить", modal_cancel_btn: "Отмена",
+        edit_title: "✏️ Изменить данные", edit_new_pass_label: "Новый пароль:", edit_pass_placeholder: "Пароль", edit_date_label: "Дата изменения (дд.мм):", edit_date_placeholder: "например 12.04", edit_save_btn: "💾 Сохранить", edit_save_info: "Изменения сохранятся в браузере", edit_close_btn: "Закрыть"
+      },
+      en: {
+        secure_title: "PASSWORD FOR CHATGPT", pass_label: "🌠 Password", update_badge: "🔄 updated", sub_badge: "✅ Subscription until 10.05",
+        fake_log: "⚙️ active monitoring · hacking attempts are logged", must_read_title: "📘 MUST READ",
+        warn_violation_title: "‼️ VIOLATION = BAN", warn_violation_text: "Please do not change the password or other data, otherwise you will lose access. I will write to support that you are violating platform rules, and you will be banned on FunPay!!",
+        warn_no_spam: "!!DO NOT SPAM IN CHATS!!", warn_no_keys: "!!DO NOT CREATE security keys and Authenticator app!!",
+        code_title: "‼️ CODE FOR ACCOUNT", code_desc: "To get the code, type <strong>!cd</strong> in FunPay chat (other commands don't work), and you will receive the code. Note that the email is different, but the code is correct (it's forwarded from my work email). It looks like this: <strong style=\"color:#aad0ff;\">📧 arsenev.2005@internet.ru: YOUR CODE</strong>.",
+        code_retry: "If the code is the same or you can't log in — this is ChatGPT protection. Just log in again and preferably close the tab and open a new one.",
+        important_title: "⚠️ IMPORTANT", imp1: "Do not change the password or account data.", imp2: "Do not change security settings.", imp3: "Possible logout from the account — this is for security (you can log back in immediately).", imp4: "Chats and history may be shared.", imp5: "Possible simultaneous use by other users, which may cause limits. I have nothing to do with it ¯\\_(ツ)_/¯", imp6: "If data is changed, access may be lost without compensation.", imp7: "The account is used by 75+ people, it can be banned at any time. Avoid suspicious activity. Warranty 12 hours. If the account is banned, there will be no compensation or refund. P.S. I am not to blame if the account is banned, all responsibility lies with the abuse of shared accounts (ChatGPT itself prohibits shared accounts).", imp8: "If you see a message 'Someone is trying to log in from another device', click 'Confirm' so that other users can use ChatGPT.", imp9: "The price is very low, and I will not answer questions in detail — 80% of answers are already here. Respect your time and mine. Thank you for understanding!",
+        video_label: "I made a video instruction on how to log into the account:", video_btn: "VIDEO",
+        request_title: "⭐️ REQUEST", request_text: "If everything is fine and you are satisfied with the purchase — please leave a review.",
+        support_title: "😴 SUPPORT", support_text: "I am online from 11:00 to 01:00 Moscow time. The rest of the time I rest, the system is fully automated. If there is a real problem — write, but I don't reply immediately. 80% of problems are solved on your side. Thank you in advance for your understanding!",
+        personal_title: "🔰 PERSONAL ACCOUNT", personal_text: "If you want to have a personal account with full access and no hassle, you can buy here:", buy_btn: "BUY💸",
+        sub_plus_title: "🔰🔰🔰 CHEAP PLUS SUBSCRIPTION", sub_plus_text: "If you want to buy a subscription instead of a shared account, you can buy here:", sub_plus_btn: "BUY💸",
+        vpn_title: "❓ SUBSCRIPTION MAY EXPIRE", vpn_text: "— Using VPN to log in from different countries or not using VPN when logging in from Russia. In such cases, there will be no refund.",
+        modal_access_title: "🌌 Access", modal_enter_pass: "Enter master password", modal_pass_placeholder: "Password", modal_verify_btn: "Verify", modal_cancel_btn: "Cancel",
+        edit_title: "✏️ Edit data", edit_new_pass_label: "New password:", edit_pass_placeholder: "Password", edit_date_label: "Change date (dd.mm):", edit_date_placeholder: "e.g. 12.04", edit_save_btn: "💾 Save", edit_save_info: "Changes will be saved in browser", edit_close_btn: "Close"
+      }
+    };
+
+    function applyLanguage(lang) {
+      window.currentLang = lang;
+      const t = translations[lang];
+      for (let key in t) {
+        const elements = document.querySelectorAll(`[data-trans-key="${key}"]`);
+        elements.forEach(el => {
+          if (el.tagName === 'INPUT' && el.hasAttribute('data-trans-placeholder-key')) {
+            el.placeholder = t[key];
+          } else if (key === 'code_desc') {
+            el.innerHTML = t[key];
+          } else if (el.children.length === 0 || (el.children.length === 1 && el.children[0]?.tagName === 'STRONG')) {
+            el.innerHTML = t[key];
+          } else {
+            const textNode = Array.from(el.childNodes).find(n => n.nodeType === 3);
+            if (textNode) textNode.textContent = t[key];
+            else if (el.children.length === 0) el.innerText = t[key];
+          }
+        });
+      }
+      document.querySelectorAll('.copy-btn').forEach(btn => {
+        if (btn.closest('.pass-value')) btn.innerHTML = (lang === 'en') ? 'COPY' : 'КОПИРОВАТЬ';
+      });
+      document.title = (lang === 'en') ? "🌌 Instruction · Access to ChatGPT" : "🌌 Инструкция · Доступ к ChatGPT";
+    }
+
+    const styleSheet = document.createElement("style");
+    document.head.appendChild(styleSheet);
+    function updatePseudoLang(lang) {
+      styleSheet.innerHTML = `.password-wrapper::after { content: ${lang === 'en' ? '"🛡️ secure block"' : '"🛡️ защищённый блок"'} !important; }`;
+    }
+
+    const toggleBtn = document.getElementById('langToggleBtn');
+    let currentLangStored = localStorage.getItem('app_lang') || 'ru';
+    function setLanguage(lang) {
+      applyLanguage(lang);
+      updatePseudoLang(lang);
+      toggleBtn.innerHTML = (lang === 'ru') ? 'EN' : 'RU';
+      localStorage.setItem('app_lang', lang);
+      window.currentLang = lang;
+      setTimeout(() => {
+        document.querySelectorAll('.copy-btn').forEach(btn => {
+          if (btn.closest('.pass-value')) btn.innerHTML = (lang === 'en') ? 'COPY' : 'КОПИРОВАТЬ';
+        });
+      }, 10);
+    }
+    setLanguage(currentLangStored);
+    toggleBtn.addEventListener('click', () => {
+      const newLang = window.currentLang === 'ru' ? 'en' : 'ru';
+      setLanguage(newLang);
+    });
   })();
 </script>
-
-</body></html>
+</body>
+</html>
