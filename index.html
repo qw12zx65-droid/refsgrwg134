@@ -1,111 +1,157 @@
 <!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-  <title>🔐 Доступ к аккаунту</title>
-  <!-- подключаем конфиг с паролем и датой -->
-  <script src="config.js"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
+<!-- saved from url=(0070)file:///C:/Users/Vsevolod/Downloads/deepseek_html_20260414_cfe4fa.html -->
+<html lang="ru"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title>🌌 Инструкция · Доступ к ChatGPT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com/">
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+  <link href="./🌌 Инструкция · Доступ к ChatGPT_files/css2" rel="stylesheet">
   <style>
-    /* ... (стили остаются те же, что в предыдущем ответе) ... */
+    /* === стили без изменений === */
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-    body { min-height: 100vh; background: linear-gradient(145deg, #ffb347 0%, #ff8c00 50%, #ea580c 100%); padding: 24px 16px 50px; display: flex; align-items: center; justify-content: center; position: relative; overflow-x: hidden; }
-    .bg-blob { position: absolute; width: 400px; height: 400px; background: rgba(255,220,120,0.25); border-radius: 70% 30% 60% 40% / 40% 60% 30% 70%; top: -150px; right: -100px; filter: blur(70px); animation: float 18s infinite alternate; pointer-events: none; }
-    .bg-blob2 { position: absolute; width: 350px; height: 350px; background: rgba(255,140,0,0.2); border-radius: 40% 60% 70% 30% / 50% 40% 60% 50%; bottom: -100px; left: -80px; filter: blur(80px); animation: float2 20s infinite alternate; pointer-events: none; }
-    @keyframes float { 0% { transform: translate(0,0) rotate(0deg); } 100% { transform: translate(30px,-40px) rotate(8deg); } }
-    @keyframes float2 { 0% { transform: translate(0,0) rotate(0deg); } 100% { transform: translate(-40px,30px) rotate(-6deg); } }
-    .glass-card { max-width: 720px; width: 100%; background: rgba(255,250,235,0.85); backdrop-filter: blur(16px); border-radius: 56px 24px 56px 24px; box-shadow: 0 30px 45px -8px rgba(150,60,0,0.5), 0 12px 0 0 #b45309 inset, 0 -4px 0 0 #fde68a inset, 0 0 0 3px #fbbf24; padding: 34px 30px 38px; border: 2px solid #ffb347; position: relative; z-index: 10; transition: 0.2s; }
-    .decor-line { display: flex; align-items: center; gap: 14px; margin-bottom: 28px; }
-    .decor-icon { background: #ea580c; width: 56px; height: 56px; border-radius: 20px 8px 20px 8px; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 0 #9a3412; border: 2px solid #fdba74; color: #fffbeb; font-size: 32px; transform: rotate(3deg); }
-    .decor-text { font-weight: 800; color: #78350f; text-transform: uppercase; letter-spacing: 3px; font-size: 1rem; background: #fde68a; padding: 10px 24px; border-radius: 60px; box-shadow: inset 0 -3px 0 #b45309; border: 1px solid #fbbf24; }
-    .alert-panel { background: #fff3e0; border-left: 16px solid #dc2626; padding: 20px 22px 18px; border-radius: 32px 16px 32px 16px; margin-bottom: 30px; box-shadow: 0 10px 0 #b45309, 0 6px 15px rgba(220,38,38,0.1); border: 2px solid #f97316; }
-    .alert-title { font-weight: 900; font-size: 1.7rem; color: #991b1b; display: flex; align-items: center; gap: 12px; margin-bottom: 16px; text-transform: uppercase; }
-    .alert-content { font-weight: 700; color: #3b1c0a; background: #fef9c3; padding: 16px 20px; border-radius: 24px; font-size: 1rem; line-height: 1.6; border: 2px solid #ea580c; box-shadow: inset 0 2px 6px #fde68a; }
-    .alert-content i { background: #fee2e2; padding: 4px 12px; border-radius: 40px; color: #b91c1c; font-style: normal; font-weight: 800; margin: 0 2px; }
-    .credentials-wrapper { background: #fffbeb; border-radius: 40px 20px 40px 20px; padding: 22px 22px 18px; margin: 28px 0 22px; border: 5px solid #f59e0b; box-shadow: inset 0 2px 10px #ffe69b, 0 14px 0 #b45309; position: relative; user-select: none; }
-    .credentials-wrapper::after { content: "🛡️ защищённый блок"; position: absolute; bottom: -14px; right: 22px; background: #1e293b; color: #fbbf24; font-size: 11px; font-weight: 600; padding: 5px 16px; border-radius: 30px; opacity: 0.8; border: 1px solid #f59e0b; }
-    .cred-row { display: flex; align-items: center; flex-wrap: wrap; background: #ffffff; padding: 14px 24px; border-radius: 60px 18px 60px 18px; border: 4px solid #d97706; box-shadow: 0 6px 0 #b45309; }
-    .cred-label { font-weight: 800; min-width: 110px; color: #92400e; font-size: 1.6rem; letter-spacing: -0.5px; }
-    .cred-value { font-family: 'SF Mono', monospace; font-size: 1.45rem; font-weight: 700; background: #fff7e6; padding: 12px 20px; border-radius: 60px; color: #2c1604; word-break: break-all; flex: 1; border: 2px dashed #fbbf24; display: flex; align-items: center; justify-content: space-between; }
-    .copy-btn { background: #f59e0b; border: none; color: #2c1604; font-weight: 800; padding: 12px 22px; border-radius: 60px; margin-left: 20px; cursor: pointer; font-size: 1rem; box-shadow: 0 6px 0 #b45309; transition: all 0.08s; border: 2px solid #fde68a; background: linear-gradient(to bottom, #fbbf24, #f59e0b); display: inline-flex; align-items: center; gap: 6px; }
-    .copy-btn:active { transform: translateY(5px); box-shadow: 0 1px 0 #b45309; }
-    .meta-footer { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; margin: 12px 0 16px; }
-    .update-chip { background: #ea580c; color: #fffbeb; padding: 12px 26px; border-radius: 40px; font-weight: 800; font-size: 1.05rem; box-shadow: inset 0 -4px 0 #9a3412; border: 2px solid #fdba74; display: flex; align-items: center; gap: 8px; }
-    .update-chip span { background: #431407; padding: 4px 16px; border-radius: 40px; color: #fde68a; font-weight: 700; }
-    .subscription-badge { background: #fed7aa; padding: 12px 26px; border-radius: 40px; font-weight: 900; color: #7c2d12; border: 4px solid #c2410c; font-size: 1.2rem; box-shadow: 0 6px 0 #9a3412; }
-    .notice-message { margin: 22px 0 16px; background: rgba(255,237,213,0.9); padding: 18px 22px; border-radius: 28px 12px 28px 12px; color: #431407; font-weight: 700; border: 4px solid #f97316; backdrop-filter: blur(4px); font-size: 1rem; box-shadow: inset 0 2px 6px #fde68a; line-height: 1.5; }
-    .secret-section { margin-top: 30px; display: flex; justify-content: flex-end; }
-    .invisible-trigger { background: transparent; border: none; color: #b45309; font-size: 10px; padding: 4px 18px; border-radius: 60px; cursor: default; opacity: 0.05; transition: opacity 0.3s; font-weight: 300; letter-spacing: 3px; }
-    .invisible-trigger:hover { opacity: 0.3; cursor: pointer; background: rgba(180,83,9,0.08); }
-    .fake-log { font-size: 10px; text-align: right; opacity: 0.5; margin-top: 12px; color: #3b1c0a; font-weight: 500; }
-    .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(100,40,0,0.7); backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; z-index: 1000; }
-    .modal-card { background: #fffbeb; max-width: 440px; width: 90%; padding: 32px 28px; border-radius: 48px 20px 48px 20px; border: 6px solid #f59e0b; box-shadow: 0 22px 0 #9a3412, 0 30px 30px -8px #431407; animation: modalPop 0.2s; }
+    body { min-height: 100vh; background: radial-gradient(circle at 30% 40%, #0b0f2a, #020408); padding: 20px 12px 50px; display: flex; flex-direction: column; align-items: center; position: relative; overflow-x: hidden; }
+    .stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+    .star { position: absolute; background: #fff; border-radius: 50%; opacity: 0.7; animation: twinkle 4s infinite alternate; }
+    @keyframes twinkle { 0% { opacity: 0.2; transform: scale(1); } 100% { opacity: 1; transform: scale(1.3); } }
+    .nebula { position: fixed; width: 600px; height: 600px; border-radius: 50%; filter: blur(90px); pointer-events: none; z-index: 0; }
+    .nebula1 { top: -200px; left: -200px; background: radial-gradient(circle, #4a3aff 0%, transparent 70%); }
+    .nebula2 { bottom: -200px; right: -200px; background: radial-gradient(circle, #9f2b68 0%, transparent 70%); }
+    .nebula3 { top: 50%; left: 20%; width: 400px; height: 400px; background: radial-gradient(circle, #2cd4ff 0%, transparent 70%); opacity: 0.3; }
+    .cosmic-container { max-width: 900px; width: 100%; position: relative; z-index: 5; }
+    .glass-card { background: rgba(10, 15, 30, 0.6); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); border-radius: 48px 20px 48px 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.7), 0 0 0 2px rgba(100,180,255,0.2) inset, 0 0 25px #2a4a8a inset; padding: 30px 24px; border: 1px solid rgba(120, 180, 255, 0.3); margin-bottom: 30px; transition: box-shadow 0.2s; }
+    .glass-card:hover { box-shadow: 0 25px 50px rgba(0,0,0,0.8), 0 0 0 2px #5f9fff inset, 0 0 30px #4a8cff; }
+    .section-title { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; color: #b8d4ff; font-weight: 800; font-size: 1.8rem; letter-spacing: -0.5px; text-shadow: 0 0 12px #3f7fff; border-bottom: 2px dashed #3f6a9c; padding-bottom: 12px; }
+    .section-title i { font-size: 2rem; }
+    .secure-header { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+    .secure-icon { background: linear-gradient(145deg, #1e2a5a, #0e1a2b); width: 55px; height: 55px; border-radius: 18px 8px 18px 8px; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 0 #0a121f, 0 0 20px #3f7fff; border: 1px solid #6d94dd; color: #e0f0ff; font-size: 32px; transform: rotate(3deg); }
+    .secure-text { font-weight: 800; color: #b8d4ff; text-transform: uppercase; letter-spacing: 3px; font-size: 1.1rem; background: rgba(20,40,70,0.7); padding: 10px 24px; border-radius: 60px; box-shadow: inset 0 -2px 0 #2a4a8a, 0 0 12px #3f7fff; border: 1px solid #5f9fff; backdrop-filter: blur(5px); }
+    .password-wrapper { background: rgba(5,15,30,0.7); border-radius: 40px 20px 40px 20px; padding: 18px 20px; margin: 20px 0 10px; border: 2px solid #3f8eff; box-shadow: inset 0 0 20px #1e3a6b, 0 8px 0 #0a1620, 0 0 20px #2a6ebb; position: relative; user-select: none; }
+    .password-wrapper::after { content: "🛡️ защищённый блок"; position: absolute; bottom: -12px; right: 20px; background: #0e1a2f; color: #aad0ff; font-size: 10px; font-weight: 600; padding: 4px 14px; border-radius: 30px; border: 1px solid #3f8eff; box-shadow: 0 0 8px #3f8eff; }
+    .pass-row { display: flex; align-items: center; flex-wrap: wrap; background: rgba(20,35,60,0.9); padding: 12px 20px; border-radius: 60px 18px 60px 18px; border: 2px solid #5f9fff; box-shadow: 0 6px 0 #0a1620, inset 0 0 12px #1e4a8e; }
+    .pass-label { font-weight: 800; min-width: 100px; color: #c5deff; font-size: 1.5rem; text-shadow: 0 0 8px #3f8eff; }
+    .pass-value { font-family: monospace; font-size: 1.4rem; font-weight: 700; background: #0e1a2f; padding: 10px 18px; border-radius: 60px; color: #e5f0ff; word-break: break-all; flex: 1; border: 1px dashed #6ab0ff; display: flex; align-items: center; justify-content: space-between; box-shadow: inset 0 0 12px #1e3a6b; }
+    .copy-btn { background: linear-gradient(to bottom, #2a5a9c, #1a3a6c); border: none; color: #e5f0ff; font-weight: 800; padding: 10px 18px; border-radius: 60px; margin-left: 15px; cursor: pointer; box-shadow: 0 5px 0 #0a1620, 0 0 10px #3f8eff; transition: all 0.08s; border: 1px solid #6ab0ff; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 5px; }
+    .copy-btn:active { transform: translateY(4px); box-shadow: 0 1px 0 #0a1620, 0 0 12px #3f8eff; }
+    .meta-info { display: flex; flex-wrap: wrap; justify-content: space-between; margin: 15px 0 10px; }
+    .update-badge { background: #1a2e5a; color: #d0e4ff; padding: 10px 20px; border-radius: 40px; font-weight: 700; font-size: 0.95rem; box-shadow: inset 0 -2px 0 #2a4a8a, 0 0 12px #3f7fff; border: 1px solid #6d94dd; }
+    .sub-badge { background: #2a1e4a; padding: 10px 22px; border-radius: 40px; font-weight: 900; color: #e0c0ff; border: 2px solid #a06eff; font-size: 1.1rem; box-shadow: 0 5px 0 #1a0e2e, 0 0 12px #a06eff; }
+    .instruction-block { color: #d0e0ff; }
+    .warning-box { background: rgba(40, 10, 20, 0.6); border-left: 10px solid #ff4f75; padding: 18px 20px; border-radius: 24px 12px 24px 12px; margin-bottom: 25px; border: 1px solid #ff8099; box-shadow: 0 6px 0 #4a1a2e, 0 0 18px #ff4f75; }
+    .warning-title { font-weight: 900; font-size: 1.6rem; color: #ffb0c3; margin-bottom: 12px; text-transform: uppercase; text-shadow: 0 0 8px #ff2a5e; }
+    .list-item { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 16px; font-size: 1rem; line-height: 1.5; }
+    .list-icon { font-size: 1.5rem; min-width: 32px; text-align: center; }
+    .divider { height: 2px; background: linear-gradient(90deg, transparent, #4f8eff, transparent); margin: 25px 0; }
+    .link-button { display: inline-block; background: #2a5a9c; color: white; padding: 12px 24px; border-radius: 60px; text-decoration: none; font-weight: 700; box-shadow: 0 6px 0 #0a1620, 0 0 15px #3f8eff; border: 1px solid #6ab0ff; margin-top: 10px; transition: 0.1s; }
+    .link-button:active { transform: translateY(4px); box-shadow: 0 2px 0 #0a1620, 0 0 15px #3f8eff; }
+    .secret-area { margin-top: 30px; display: flex; justify-content: flex-end; }
+    .secret-btn { background: transparent; border: none; color: #5f9fff; font-size: 11px; padding: 4px 16px; border-radius: 60px; opacity: 0.1; transition: opacity 0.3s; font-weight: 300; letter-spacing: 3px; cursor: default; }
+    .secret-btn:hover { opacity: 0.5; cursor: pointer; background: rgba(100,150,255,0.15); box-shadow: 0 0 10px #3f8eff; }
+    .fake-log { text-align: right; font-size: 10px; opacity: 0.7; margin-top: 10px; color: #a0c0ff; }
+    .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,5,20,0.8); backdrop-filter: blur(10px); display: none; align-items: center; justify-content: center; z-index: 1000; }
+    .modal-card { background: rgba(15,25,45,0.95); max-width: 420px; width: 90%; padding: 30px 25px; border-radius: 48px 20px 48px 20px; border: 2px solid #4f8eff; box-shadow: 0 20px 0 #0a1620, 0 0 40px #3f8eff; backdrop-filter: blur(20px); animation: modalPop 0.2s; }
     @keyframes modalPop { 0% { transform: scale(0.95); opacity: 0.7; } 100% { transform: scale(1); opacity: 1; } }
-    .modal-card h3 { color: #92400e; font-size: 1.9rem; margin-bottom: 24px; font-weight: 800; }
-    .modal-input { width: 100%; padding: 15px 18px; border-radius: 50px; border: 4px solid #fbbf24; background: #fff7e6; font-size: 1.05rem; margin-bottom: 20px; font-weight: 600; outline: none; }
-    .modal-input:focus { border-color: #ea580c; box-shadow: 0 0 0 4px rgba(245,158,11,0.3); }
-    .modal-btn { background: #ea580c; border: none; color: white; font-weight: 800; padding: 16px 20px; border-radius: 60px; width: 100%; font-size: 1.25rem; box-shadow: 0 8px 0 #9a3412; cursor: pointer; transition: 0.08s; border: 2px solid #fdba74; margin-top: 8px; text-transform: uppercase; letter-spacing: 1px; }
-    .modal-btn.secondary { background: #a16207; box-shadow: 0 5px 0 #713f12; margin-top: 16px; font-size: 1.1rem; }
-    .modal-btn:active { transform: translateY(5px); box-shadow: 0 3px 0 #7c2d12; }
-    .close-icon { float: right; font-size: 34px; font-weight: bold; cursor: pointer; color: #b45309; margin-top: -10px; }
-    .error-msg { color: #b91c1c; font-weight: bold; margin: 12px 0 0; }
-    .save-hint { font-size: 12px; color: #78350f; margin-top: 8px; font-weight: 500; }
+    .modal-card h3 { color: #c0dcff; font-size: 1.8rem; margin-bottom: 20px; font-weight: 800; text-shadow: 0 0 10px #3f8eff; }
+    .modal-input { width: 100%; padding: 14px 18px; border-radius: 50px; border: 2px solid #3f8eff; background: #0e1a2f; font-size: 1rem; margin-bottom: 18px; font-weight: 600; outline: none; color: #e5f0ff; box-shadow: inset 0 0 12px #1e3a6b; }
+    .modal-btn { background: linear-gradient(to bottom, #2a5a9c, #1a3a6c); border: none; color: white; font-weight: 800; padding: 14px 20px; border-radius: 60px; width: 100%; font-size: 1.2rem; box-shadow: 0 6px 0 #0a1620, 0 0 12px #3f8eff; cursor: pointer; border: 1px solid #6ab0ff; margin-top: 8px; text-transform: uppercase; }
+    .modal-btn.secondary { background: #3a2a6c; box-shadow: 0 4px 0 #1a0e2e, 0 0 12px #a06eff; margin-top: 14px; font-size: 1rem; }
+    .modal-btn:active { transform: translateY(4px); box-shadow: 0 2px 0 #0a1620, 0 0 15px #3f8eff; }
+    .close-icon { float: right; font-size: 32px; font-weight: bold; cursor: pointer; color: #9fc3ff; margin-top: -8px; }
+    .error-msg { color: #ff8099; font-weight: bold; margin: 10px 0 0; }
+    @media (max-width: 600px) { body { padding: 16px 8px 40px; } .glass-card { padding: 22px 16px; border-radius: 36px 16px 36px 16px; } .section-title { font-size: 1.5rem; } .secure-text { font-size: 0.9rem; padding: 8px 16px; } .pass-value { font-size: 1.1rem; } .copy-btn { padding: 8px 14px; font-size: 0.8rem; } }
+    @media (max-width: 400px) { .pass-row { flex-direction: column; align-items: stretch; gap: 10px; } .pass-value { justify-content: center; } }
   </style>
 </head>
 <body>
-<div class="bg-blob"></div>
-<div class="bg-blob2"></div>
+<div class="stars" id="starsContainer"><div class="star" style="width: 1.21657px; height: 1.21657px; left: 53.7636%; top: 32.3525%; animation-delay: 4.18919s;"></div><div class="star" style="width: 2.80189px; height: 2.80189px; left: 90.6946%; top: 0.758193%; animation-delay: 2.97223s;"></div><div class="star" style="width: 2.25606px; height: 2.25606px; left: 84.4918%; top: 43.6197%; animation-delay: 0.701541s;"></div><div class="star" style="width: 1.71768px; height: 1.71768px; left: 88.9314%; top: 2.49762%; animation-delay: 2.07833s;"></div><div class="star" style="width: 2.53393px; height: 2.53393px; left: 44.9453%; top: 47.8815%; animation-delay: 4.46193s;"></div><div class="star" style="width: 3.52043px; height: 3.52043px; left: 6.54025%; top: 66.6029%; animation-delay: 0.759045s;"></div><div class="star" style="width: 1.92727px; height: 1.92727px; left: 62.6206%; top: 30.0278%; animation-delay: 4.26605s;"></div><div class="star" style="width: 1.71284px; height: 1.71284px; left: 23.4599%; top: 95.1276%; animation-delay: 2.35378s;"></div><div class="star" style="width: 1.60599px; height: 1.60599px; left: 67.098%; top: 24.1892%; animation-delay: 1.32588s;"></div><div class="star" style="width: 1.17169px; height: 1.17169px; left: 97.1831%; top: 4.14715%; animation-delay: 4.57572s;"></div><div class="star" style="width: 1.82735px; height: 1.82735px; left: 14.4458%; top: 31.6711%; animation-delay: 1.54388s;"></div><div class="star" style="width: 1.6191px; height: 1.6191px; left: 20.0616%; top: 20.154%; animation-delay: 3.9942s;"></div><div class="star" style="width: 1.08221px; height: 1.08221px; left: 84.9178%; top: 86.3626%; animation-delay: 3.26552s;"></div><div class="star" style="width: 2.34732px; height: 2.34732px; left: 0.39464%; top: 74.1807%; animation-delay: 4.49447s;"></div><div class="star" style="width: 1.14445px; height: 1.14445px; left: 57.5328%; top: 86.7682%; animation-delay: 4.4159s;"></div><div class="star" style="width: 3.17474px; height: 3.17474px; left: 16.3035%; top: 51.7988%; animation-delay: 4.06707s;"></div><div class="star" style="width: 1.06977px; height: 1.06977px; left: 69.2324%; top: 76.157%; animation-delay: 3.79283s;"></div><div class="star" style="width: 3.17991px; height: 3.17991px; left: 16.7144%; top: 2.29007%; animation-delay: 0.334578s;"></div><div class="star" style="width: 3.68577px; height: 3.68577px; left: 87.1076%; top: 38.7509%; animation-delay: 4.34145s;"></div><div class="star" style="width: 2.73796px; height: 2.73796px; left: 89.8526%; top: 26.9168%; animation-delay: 3.22411s;"></div><div class="star" style="width: 3.92947px; height: 3.92947px; left: 58.9376%; top: 25.6441%; animation-delay: 1.56394s;"></div><div class="star" style="width: 3.05544px; height: 3.05544px; left: 16.7586%; top: 56.9473%; animation-delay: 2.03156s;"></div><div class="star" style="width: 1.64436px; height: 1.64436px; left: 4.98648%; top: 59.4505%; animation-delay: 0.521623s;"></div><div class="star" style="width: 2.6141px; height: 2.6141px; left: 12.1737%; top: 78.3834%; animation-delay: 1.31539s;"></div><div class="star" style="width: 2.30529px; height: 2.30529px; left: 29.167%; top: 93.9455%; animation-delay: 2.01407s;"></div><div class="star" style="width: 3.12554px; height: 3.12554px; left: 16.7648%; top: 48.1285%; animation-delay: 2.83213s;"></div><div class="star" style="width: 3.47262px; height: 3.47262px; left: 86.6509%; top: 13.1355%; animation-delay: 1.38793s;"></div><div class="star" style="width: 3.38385px; height: 3.38385px; left: 2.25779%; top: 37.9619%; animation-delay: 3.14872s;"></div><div class="star" style="width: 1.94392px; height: 1.94392px; left: 46.4498%; top: 11.252%; animation-delay: 3.77097s;"></div><div class="star" style="width: 3.04216px; height: 3.04216px; left: 35.8627%; top: 33.8408%; animation-delay: 3.38767s;"></div><div class="star" style="width: 3.28584px; height: 3.28584px; left: 48.2997%; top: 45.0258%; animation-delay: 2.62662s;"></div><div class="star" style="width: 2.59051px; height: 2.59051px; left: 22.7537%; top: 5.861%; animation-delay: 0.610339s;"></div><div class="star" style="width: 2.16229px; height: 2.16229px; left: 43.175%; top: 87.2343%; animation-delay: 1.43819s;"></div><div class="star" style="width: 2.3241px; height: 2.3241px; left: 38.9269%; top: 1.66564%; animation-delay: 0.447079s;"></div><div class="star" style="width: 2.43655px; height: 2.43655px; left: 23.9327%; top: 89.4648%; animation-delay: 1.74723s;"></div><div class="star" style="width: 2.00437px; height: 2.00437px; left: 94.7316%; top: 38.4703%; animation-delay: 2.41072s;"></div><div class="star" style="width: 3.75946px; height: 3.75946px; left: 25.9366%; top: 79.2062%; animation-delay: 1.93299s;"></div><div class="star" style="width: 3.19148px; height: 3.19148px; left: 56.7914%; top: 79.0603%; animation-delay: 4.96257s;"></div><div class="star" style="width: 3.78872px; height: 3.78872px; left: 93.1327%; top: 16.9849%; animation-delay: 4.67796s;"></div><div class="star" style="width: 3.70729px; height: 3.70729px; left: 24.3896%; top: 8.4965%; animation-delay: 2.22077s;"></div><div class="star" style="width: 2.13537px; height: 2.13537px; left: 91.8138%; top: 40.1738%; animation-delay: 3.42148s;"></div><div class="star" style="width: 3.33919px; height: 3.33919px; left: 62.993%; top: 12.8809%; animation-delay: 1.89339s;"></div><div class="star" style="width: 3.87225px; height: 3.87225px; left: 72.0665%; top: 99.2145%; animation-delay: 3.35632s;"></div><div class="star" style="width: 1.36061px; height: 1.36061px; left: 58.6728%; top: 18.923%; animation-delay: 1.0728s;"></div><div class="star" style="width: 1.43881px; height: 1.43881px; left: 1.33612%; top: 61.0291%; animation-delay: 1.54958s;"></div><div class="star" style="width: 1.83141px; height: 1.83141px; left: 50.4224%; top: 32.8489%; animation-delay: 1.23936s;"></div><div class="star" style="width: 3.6176px; height: 3.6176px; left: 49.9246%; top: 49.3331%; animation-delay: 2.70005s;"></div><div class="star" style="width: 2.72194px; height: 2.72194px; left: 50.829%; top: 16.4103%; animation-delay: 1.34652s;"></div><div class="star" style="width: 1.10748px; height: 1.10748px; left: 54.9711%; top: 14.7809%; animation-delay: 4.53091s;"></div><div class="star" style="width: 2.57414px; height: 2.57414px; left: 86.8588%; top: 14.1932%; animation-delay: 4.96365s;"></div><div class="star" style="width: 1.15767px; height: 1.15767px; left: 7.46795%; top: 44.426%; animation-delay: 0.419965s;"></div><div class="star" style="width: 3.87164px; height: 3.87164px; left: 8.57229%; top: 33.8626%; animation-delay: 3.16455s;"></div><div class="star" style="width: 2.9737px; height: 2.9737px; left: 43.4616%; top: 35.3009%; animation-delay: 4.0364s;"></div><div class="star" style="width: 1.22832px; height: 1.22832px; left: 49.5492%; top: 81.0063%; animation-delay: 1.04748s;"></div><div class="star" style="width: 2.51289px; height: 2.51289px; left: 51.8817%; top: 7.47615%; animation-delay: 4.13915s;"></div><div class="star" style="width: 3.67348px; height: 3.67348px; left: 63.7321%; top: 21.0297%; animation-delay: 0.589372s;"></div><div class="star" style="width: 3.93217px; height: 3.93217px; left: 65.3314%; top: 70.0847%; animation-delay: 4.19189s;"></div><div class="star" style="width: 1.21596px; height: 1.21596px; left: 6.2928%; top: 27.6545%; animation-delay: 1.07997s;"></div><div class="star" style="width: 2.82657px; height: 2.82657px; left: 57.7364%; top: 33.3151%; animation-delay: 4.02659s;"></div><div class="star" style="width: 2.40477px; height: 2.40477px; left: 12.0484%; top: 99.2763%; animation-delay: 2.5998s;"></div><div class="star" style="width: 2.07804px; height: 2.07804px; left: 23.646%; top: 64.3543%; animation-delay: 4.99137s;"></div><div class="star" style="width: 2.82637px; height: 2.82637px; left: 50.9964%; top: 71.9398%; animation-delay: 4.2735s;"></div><div class="star" style="width: 3.82172px; height: 3.82172px; left: 86.4342%; top: 44.2381%; animation-delay: 3.57688s;"></div><div class="star" style="width: 2.36552px; height: 2.36552px; left: 44.1295%; top: 88.8075%; animation-delay: 4.81107s;"></div><div class="star" style="width: 3.60621px; height: 3.60621px; left: 34.4494%; top: 77.4962%; animation-delay: 3.63963s;"></div><div class="star" style="width: 2.61425px; height: 2.61425px; left: 79.3834%; top: 29.1611%; animation-delay: 3.16841s;"></div><div class="star" style="width: 3.52007px; height: 3.52007px; left: 71.3669%; top: 32.9612%; animation-delay: 2.74003s;"></div><div class="star" style="width: 2.62468px; height: 2.62468px; left: 31.9406%; top: 66.4559%; animation-delay: 3.30596s;"></div><div class="star" style="width: 2.69094px; height: 2.69094px; left: 46.2887%; top: 3.80728%; animation-delay: 1.7732s;"></div><div class="star" style="width: 2.19367px; height: 2.19367px; left: 7.79719%; top: 30.912%; animation-delay: 0.712018s;"></div><div class="star" style="width: 3.02022px; height: 3.02022px; left: 94.375%; top: 2.6308%; animation-delay: 4.79482s;"></div><div class="star" style="width: 2.16431px; height: 2.16431px; left: 73.0704%; top: 47.7239%; animation-delay: 3.96842s;"></div><div class="star" style="width: 1.95949px; height: 1.95949px; left: 89.8327%; top: 76.0307%; animation-delay: 1.6192s;"></div><div class="star" style="width: 3.89245px; height: 3.89245px; left: 72.0455%; top: 9.78161%; animation-delay: 4.39787s;"></div><div class="star" style="width: 1.71645px; height: 1.71645px; left: 39.9978%; top: 42.9645%; animation-delay: 3.07011s;"></div><div class="star" style="width: 1.78629px; height: 1.78629px; left: 31.1491%; top: 31.6937%; animation-delay: 0.85316s;"></div><div class="star" style="width: 1.91992px; height: 1.91992px; left: 23.83%; top: 9.79388%; animation-delay: 2.91307s;"></div><div class="star" style="width: 3.47244px; height: 3.47244px; left: 20.928%; top: 47.1163%; animation-delay: 0.0126688s;"></div><div class="star" style="width: 1.99647px; height: 1.99647px; left: 75.6334%; top: 61.7312%; animation-delay: 2.1792s;"></div><div class="star" style="width: 1.35039px; height: 1.35039px; left: 65.2647%; top: 95.971%; animation-delay: 2.29284s;"></div><div class="star" style="width: 3.3475px; height: 3.3475px; left: 33.862%; top: 31.4752%; animation-delay: 4.2436s;"></div><div class="star" style="width: 2.5268px; height: 2.5268px; left: 3.08406%; top: 92.0525%; animation-delay: 1.78764s;"></div><div class="star" style="width: 1.35393px; height: 1.35393px; left: 64.2808%; top: 87.5459%; animation-delay: 1.48886s;"></div><div class="star" style="width: 1.11389px; height: 1.11389px; left: 66.3918%; top: 25.5259%; animation-delay: 4.47225s;"></div><div class="star" style="width: 1.52289px; height: 1.52289px; left: 64.8856%; top: 94.7804%; animation-delay: 4.79293s;"></div><div class="star" style="width: 3.31129px; height: 3.31129px; left: 8.04743%; top: 83.974%; animation-delay: 0.904267s;"></div><div class="star" style="width: 3.82872px; height: 3.82872px; left: 25.2119%; top: 95.7801%; animation-delay: 2.27698s;"></div><div class="star" style="width: 1.90904px; height: 1.90904px; left: 48.2697%; top: 23.4961%; animation-delay: 4.2761s;"></div><div class="star" style="width: 1.28319px; height: 1.28319px; left: 12.9826%; top: 90.8563%; animation-delay: 0.186029s;"></div><div class="star" style="width: 3.08863px; height: 3.08863px; left: 42.4361%; top: 33.5412%; animation-delay: 0.966897s;"></div><div class="star" style="width: 3.44719px; height: 3.44719px; left: 18.2571%; top: 81.4225%; animation-delay: 2.42429s;"></div><div class="star" style="width: 1.51769px; height: 1.51769px; left: 91.0063%; top: 82.2503%; animation-delay: 4.83916s;"></div><div class="star" style="width: 1.33416px; height: 1.33416px; left: 61.9612%; top: 20.6567%; animation-delay: 2.85857s;"></div><div class="star" style="width: 1.80416px; height: 1.80416px; left: 10.5491%; top: 30.3793%; animation-delay: 4.23353s;"></div><div class="star" style="width: 3.32085px; height: 3.32085px; left: 64.2136%; top: 71.8782%; animation-delay: 4.66979s;"></div><div class="star" style="width: 3.58386px; height: 3.58386px; left: 33.6926%; top: 57.6406%; animation-delay: 4.82978s;"></div><div class="star" style="width: 2.72011px; height: 2.72011px; left: 31.8711%; top: 95.8316%; animation-delay: 0.145917s;"></div><div class="star" style="width: 3.05466px; height: 3.05466px; left: 81.031%; top: 18.595%; animation-delay: 1.26135s;"></div><div class="star" style="width: 1.21051px; height: 1.21051px; left: 73.2805%; top: 60.787%; animation-delay: 1.90884s;"></div><div class="star" style="width: 3.52353px; height: 3.52353px; left: 96.6977%; top: 35.6321%; animation-delay: 3.83825s;"></div></div>
+<div class="nebula nebula1"></div>
+<div class="nebula nebula2"></div>
+<div class="nebula nebula3"></div>
 
-<div class="glass-card">
-  <div class="decor-line">
-    <div class="decor-icon">🔐</div>
-    <div class="decor-text">ЗАЩИЩЁННЫЙ ДОСТУП</div>
-  </div>
+<div class="cosmic-container">
+  <!-- КАРТОЧКА: ПАРОЛЬ И ЗАЩИЩЁННЫЙ ДОСТУП -->
+  <div class="glass-card">
+    <div class="secure-header">
+      <div class="secure-icon">🔐</div>
+      <div class="secure-text">ПАРОЛЬ ДЛЯ CHATGPT</div>
+    </div>
 
-  <div class="alert-panel">
-    <div class="alert-title"><span>🚫⚠️</span> НАРУШЕНИЕ = БАН</div>
-    <div class="alert-content">
-      ❗ Пожалуйста не меняйте пароль и др. иначе лишитесь аккаунта, плюс напишу в поддержку что вы нарушаете правила платформы и вас блокнут на FunPay!!<br>
-      <i>!!НЕ СПАМЬТЕ В ЧАТАХ!!</i><br>
-      <i>!!НЕЛЬЗЯ СОЗДАВАТЬ Ключи безопасности и Authenticator app !!</i>
+    <div class="password-wrapper" oncontextmenu="return false;">
+      <div class="pass-row">
+        <span class="pass-label">🌠 Пароль</span>
+        <span class="pass-value" id="displayPasswordContainer">L7h-5GA-7fE-uyP<button class="copy-btn" data-copy="9Iw_-A2eIHje">КОПИРОВАТЬ</button></span>
+      </div>
+    </div>
+
+    <div class="meta-info">
+      <div class="update-badge">
+        🔄 изменено <span id="lastUpdateDate">15.04</span>
+      </div>
+      <div class="sub-badge">✅ Подписка до 10.05</div>
+    </div>
+
+    <div class="fake-log">⚙️ активный мониторинг · попытки взлома логируются</div>
+
+    <div class="secret-area">
+      <button class="secret-btn" id="secretEditTrigger">⚡⚡⚡</button>
     </div>
   </div>
 
-  <!-- Пароль будет подставлен из config.js -->
-  <div class="credentials-wrapper" oncontextmenu="return false;">
-    <div class="cred-row">
-      <span class="cred-label">🔒 Пароль</span>
-      <span class="cred-value" id="displayPasswordContainer"></span>
+  <!-- КАРТОЧКА: ИНСТРУКЦИЯ (без изменений) -->
+  <div class="glass-card instruction-block">
+    <div class="section-title"><span>📘</span> ОБЯЗАТЕЛЬНО К ПРОЧТЕНИЮ</div>
+
+    <div class="warning-box" style="border-left-color: #ff3b3b; box-shadow: 0 6px 0 #4a1a2e, 0 0 20px #ff3b3b;">
+      <div class="warning-title" style="color: #ff9e9e;">‼️ НАРУШЕНИЕ = БАН</div>
+      <div class="list-item"><span class="list-icon">❗</span><span>Пожалуйста, не меняйте пароль и другие данные, иначе лишитесь аккаунта. Я напишу в поддержку, что вы нарушаете правила платформы, и вас заблокируют на FunPay!!</span></div>
+      <div class="list-item"><span class="list-icon">🚫</span><span><strong>!!НЕ СПАМЬТЕ В ЧАТАХ!!</strong></span></div>
+      <div class="list-item"><span class="list-icon">🚫</span><span><strong>!!НЕЛЬЗЯ СОЗДАВАТЬ Ключи безопасности и Authenticator app !!</strong></span></div>
     </div>
-  </div>
 
-  <div class="meta-footer">
-    <div class="update-chip">
-      🔄 изменено <span id="lastUpdateDate">загрузка...</span>
+    <div class="warning-box">
+      <div class="warning-title">‼️ КОД В АККАУНТ</div>
+      <div class="list-item"><span class="list-icon">🔑</span><span>Чтобы получить код, напишите в чат FunPay <strong>!cd</strong> (другие команды не работают), и вы получите код. Учтите, что почта другая, но код верный (это пересылка с моей рабочей почты). Выглядит так: <strong style="color:#aad0ff;">📧 arsenev.2005@internet.ru: ВАШ КОД</strong>.</span></div>
+      <div class="list-item"><span class="list-icon">🔄</span><span>Если код один и тот же или вы не смогли войти — это защита от ChatGPT. Просто авторизуйтесь заново и желательно закройте вкладку, открыв новую.</span></div>
     </div>
-    <div class="subscription-badge">✅ Подписка до 10.05</div>
-  </div>
 
-  <div class="notice-message">
-    💡 Пароль обновляется на этом сайте. Иногда раньше из-за некоторых людей, которые считают себя умнее остальных.
-  </div>
+    <div class="divider"></div>
 
-  <div class="fake-log">⚙️ активный мониторинг · попытки взлома логируются</div>
+    <div class="section-title" style="font-size:1.5rem; margin-top:10px;"><span>⚠️</span> ВАЖНОЕ</div>
+    <div class="list-item"><span class="list-icon">🚫</span><span>Не меняйте пароль и данные аккаунта.</span></div>
+    <div class="list-item"><span class="list-icon">🚫</span><span>Не изменяйте настройки безопасности.</span></div>
+    <div class="list-item"><span class="list-icon">🔃</span><span>Возможен вылет из аккаунта — это делается для безопасности (можете сразу перезайти).</span></div>
+    <div class="list-item"><span class="list-icon">👥</span><span>Диалоги и история могут быть общими.</span></div>
+    <div class="list-item"><span class="list-icon">🌍</span><span>Возможно одновременное использование другими пользователями, из-за этого бывают лимиты. Я тут ни при чём ¯\_(ツ)_/¯</span></div>
+    <div class="list-item"><span class="list-icon">🔄</span><span>Если данные будут изменены, доступ может быть утерян без компенсации.</span></div>
+    <div class="list-item"><span class="list-icon">📃</span><span>Аккаунтом пользуются более 75+ человек, его могут заблокировать в любое время. Избегайте подозрительных действий. Гарантия 4 часа . Если аккаунт заблокируют компенсации не будет и возрата тоже . P.S. Я не винноват если аккаунт заблокируют , вся отвественность за блокировку лежит на абуз общих аккаунтов (сам Chat GPT запрещает общие аккаунты)   </span></div>
+    <div class="list-item"><span class="list-icon">🤖</span><span>Если появляется сообщение «Кто-то пытается войти с другого устройства», нажмите «Подтвердить», чтобы другие пользователи могли использовать ChatGPT.</span></div>
+    <div class="list-item"><span class="list-icon">💸</span><span>Цена очень маленькая, и я не буду подробно отвечать на вопросы — 80% ответов уже есть здесь. Уважайте своё и моё время. Благодарю за понимание!</span></div>
 
-  <div class="secret-section">
-    <button class="invisible-trigger" id="secretEditTrigger">•••••••</button>
+    <div class="divider"></div>
+    <div class="section-title" style="font-size:1.5rem;"><span>⭐️</span> ПРОСЬБА</div>
+    <div class="list-item"><span class="list-icon">💬</span><span>Если всё устраивает и вы довольны покупкой — оставьте, пожалуйста, отзыв.</span></div>
+
+    <div class="divider"></div>
+    <div class="section-title" style="font-size:1.5rem;"><span>😴</span> ПОДДЕРЖКА</div>
+    <div class="list-item"><span class="list-icon">🕒</span><span>Я онлайн с 11:00 до 01:00 по московскому времени. В остальное время отдыхаю, система полностью автоматизирована. Если есть реальная проблема — пишите, но отвечаю не сразу. 80% проблем решаются с вашей стороны. Заранее благодарю за понимание!</span></div>
+
+    <div class="divider"></div>
+    <div class="section-title" style="font-size:1.5rem;"><span>🔰</span> ЛИЧНЫЙ АККАУНТ</div>
+    <div class="list-item"><span class="list-icon">✨</span><span>Если хотите иметь личный аккаунт с полным доступом и без геморроя , можете купить тут:</span></div>
+    <a href="https://clck.ru/3T4pGg" target="_blank" class="link-button">КУПИТЬ💸</a>
+
+    <div class="divider"></div>
+    <div class="section-title" style="font-size:1.5rem;"><span>❓</span> ПОДПИСКА МОЖЕТ СЛЕТЕТЬ</div>
+    <div class="list-item"><span class="list-icon">⚠️</span><span>— Использование VPN для входа из разных стран или отсутствие VPN при входе из России. В таких случаях возврата не будет.</span></div>
   </div>
 </div>
 
-<!-- Модальные окна (для временного редактирования) -->
+<!-- Модальные окна -->
 <div class="modal-overlay" id="authModal">
   <div class="modal-card">
-    <span class="close-icon" id="closeAuthModal">&times;</span>
-    <h3>🔐 Доступ</h3>
-    <p style="margin-bottom:16px; color:#78350f; font-weight:600;">Введите секретный пароль</p>
+    <span class="close-icon" id="closeAuthModal">×</span>
+    <h3>🌌 Доступ</h3>
+    <p style="margin-bottom:16px; color:#b8d4ff; font-weight:600;">Введите мастер-пароль</p>
     <input type="password" id="masterPasswordInput" class="modal-input" placeholder="Пароль" autocomplete="off">
     <button class="modal-btn" id="submitMasterPass">Проверить</button>
     <div id="authError" class="error-msg"></div>
@@ -115,51 +161,121 @@
 
 <div class="modal-overlay" id="editModal">
   <div class="modal-card">
-    <span class="close-icon" id="closeEditModal">&times;</span>
-    <h3>✏️ Изменить (временно)</h3>
-    <label style="font-weight:700; color:#78350f;">Новый пароль:</label>
+    <span class="close-icon" id="closeEditModal">×</span>
+    <h3>✏️ Изменить данные</h3>
+    <label style="font-weight:700; color:#b8d4ff;">Новый пароль:</label>
     <input type="text" id="newPasswordField" class="modal-input" placeholder="Пароль">
-    <label style="font-weight:700; color:#78350f;">Дата изменения (дд.мм):</label>
-    <input type="text" id="newDateField" class="modal-input" placeholder="например 15.04" maxlength="5">
-    <button class="modal-btn" id="saveChangesBtn">💾 Применить</button>
-    <p class="save-hint">Временно. Для постоянного изменения отредактируйте config.js</p>
+    <label style="font-weight:700; color:#b8d4ff;">Дата изменения (дд.мм):</label>
+    <input type="text" id="newDateField" class="modal-input" placeholder="например 12.04" maxlength="5">
+    <button class="modal-btn" id="saveChangesBtn">💾 Сохранить</button>
+    <p style="color:#a0c0ff; font-size:12px; margin-top:10px;">Изменения сохранятся в браузере</p>
     <button class="modal-btn secondary" id="cancelEditBtn">Закрыть</button>
   </div>
 </div>
 
 <script>
-  (function() {
-    // Получаем данные из внешнего конфига (должен быть определён объект SITE_CONFIG)
-    const config = window.SITE_CONFIG || {};
-    const DEFAULT_PASSWORD = config.password || 'U7h-waV-kkT-tWC';
-    const DEFAULT_DATE = config.updateDate || '11.04';
+  (function(){
+    "use strict";
 
-    let currentPassword = DEFAULT_PASSWORD;
-    let currentUpdateDate = DEFAULT_DATE;
+    // Генерация звёзд
+    const starsContainer = document.getElementById('starsContainer');
+    for (let i = 0; i < 100; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      const size = Math.random() * 3 + 1;
+      star.style.width = size + 'px';
+      star.style.height = size + 'px';
+      star.style.left = Math.random() * 100 + '%';
+      star.style.top = Math.random() * 100 + '%';
+      star.style.animationDelay = Math.random() * 5 + 's';
+      starsContainer.appendChild(star);
+    }
 
-    const passwordContainer = document.getElementById('displayPasswordContainer');
-    const lastUpdateSpan = document.getElementById('lastUpdateDate');
+    // ---------- ЗАЩИЩЁННОЕ ХРАНЕНИЕ (localStorage с шифрованием) ----------
+    const SECRET_SALT = 'CosmoSalt_2025';
+    function encrypt(data) { return btoa(unescape(encodeURIComponent(data + SECRET_SALT))); }
+    function decrypt(enc) {
+      try {
+        const dec = decodeURIComponent(escape(atob(enc)));
+        if (dec.endsWith(SECRET_SALT)) return dec.slice(0, -SECRET_SALT.length);
+      } catch(e) {}
+      return null;
+    }
+    function saveSecure(pass, date) {
+      const payload = JSON.stringify({ p: pass, d: date });
+      localStorage.setItem('fp_sec', encrypt(payload));
+      localStorage.setItem('fp_hash', btoa(pass + date + SECRET_SALT));
+    }
+    function loadSecure() {
+      const enc = localStorage.getItem('fp_sec');
+      const hash = localStorage.getItem('fp_hash');
+      if (!enc || !hash) return null;
+      const dec = decrypt(enc);
+      if (!dec) return null;
+      try {
+        const data = JSON.parse(dec);
+        if (btoa(data.p + data.d + SECRET_SALT) !== hash) return null;
+        return data;
+      } catch(e) { return null; }
+    }
+
+    // ---------- НОВЫЕ ЗНАЧЕНИЯ ПО УМОЛЧАНИЮ (меняйте здесь) ----------
+    const DEFAULT_PASS = '9Iw_-A2eIHje';
+    const DEFAULT_DATE = '13.04';
+
+    let currentPass = DEFAULT_PASS;
+    let currentDate = DEFAULT_DATE;
+
+    const passContainer = document.getElementById('displayPasswordContainer');
+    const dateSpan = document.getElementById('lastUpdateDate');
 
     function render() {
-      passwordContainer.innerHTML = '';
-      passwordContainer.appendChild(document.createTextNode(currentPassword + ' '));
+      passContainer.innerHTML = '';
+      passContainer.appendChild(document.createTextNode(currentPass + ' '));
       const btn = document.createElement('button');
       btn.className = 'copy-btn';
-      btn.setAttribute('data-copy', currentPassword);
-      btn.innerHTML = '📋 Копировать';
-      passwordContainer.appendChild(btn);
-      lastUpdateSpan.textContent = currentUpdateDate;
+      btn.setAttribute('data-copy', currentPass);
+      btn.innerHTML = 'КОПИРОВАТЬ';
+      passContainer.appendChild(btn);
+      dateSpan.textContent = currentDate;
     }
-    render();
+
+    // ---------- ИНИЦИАЛИЗАЦИЯ С АВТОМАТИЧЕСКИМ СБРОСОМ ПРИ ИЗМЕНЕНИИ DEFAULT ----------
+    (function init() {
+      const secure = loadSecure();
+      // Если в localStorage есть данные и они совпадают с текущими DEFAULT – используем их.
+      if (secure && secure.p === DEFAULT_PASS && secure.d === DEFAULT_DATE) {
+        currentPass = secure.p;
+        currentDate = secure.d;
+        render();
+        return;
+      }
+      
+      // Если данных нет или они не совпадают с DEFAULT – пробуем подгрузить config.json (опционально)
+      fetch('./config.json?t=' + Date.now())
+        .then(resp => resp.ok ? resp.json() : Promise.reject())
+        .then(cfg => {
+          currentPass = cfg.password || DEFAULT_PASS;
+          currentDate = cfg.updateDate || DEFAULT_DATE;
+        })
+        .catch(() => {
+          currentPass = DEFAULT_PASS;
+          currentDate = DEFAULT_DATE;
+        })
+        .finally(() => {
+          render();
+          saveSecure(currentPass, currentDate);   // сохраняем актуальные значения
+        });
+    })();
 
     // Копирование
-    document.querySelector('.glass-card').addEventListener('click', (e) => {
+    document.addEventListener('click', (e) => {
       const btn = e.target.closest('.copy-btn');
       if (!btn) return;
       const text = btn.getAttribute('data-copy');
       navigator.clipboard?.writeText(text).then(() => {
         btn.innerHTML = '✅ Скопировано!';
-        setTimeout(() => btn.innerHTML = '📋 Копировать', 1200);
+        setTimeout(() => btn.innerHTML = 'КОПИРОВАТЬ', 1200);
       }).catch(() => {
         const ta = document.createElement('textarea');
         ta.value = text;
@@ -168,11 +284,11 @@
         document.execCommand('copy');
         document.body.removeChild(ta);
         btn.innerHTML = '✅';
-        setTimeout(() => btn.innerHTML = '📋 Копировать', 1000);
+        setTimeout(() => btn.innerHTML = 'КОПИРОВАТЬ', 1000);
       });
     });
 
-    // Скрытая кнопка -> модалка с мастер-паролем
+    // Скрытая кнопка и модалки
     const authModal = document.getElementById('authModal');
     const editModal = document.getElementById('editModal');
     const masterInput = document.getElementById('masterPasswordInput');
@@ -192,12 +308,12 @@
     document.getElementById('submitMasterPass').addEventListener('click', () => {
       if (masterInput.value === MASTER) {
         closeAuth();
-        document.getElementById('newPasswordField').value = currentPassword;
-        document.getElementById('newDateField').value = currentUpdateDate;
+        document.getElementById('newPasswordField').value = currentPass;
+        document.getElementById('newDateField').value = currentDate;
         editModal.style.display = 'flex';
       } else {
         authError.textContent = '❌ Неверный пароль!';
-        masterInput.style.borderColor = '#dc2626';
+        masterInput.style.borderColor = '#ff4f75';
         setTimeout(() => masterInput.style.borderColor = '', 800);
       }
     });
@@ -210,10 +326,11 @@
       const newPass = document.getElementById('newPasswordField').value.trim();
       const newDate = document.getElementById('newDateField').value.trim();
       if (!newPass || !newDate) return alert('Заполните все поля');
-      if (!/^\d{2}\.\d{2}$/.test(newDate)) return alert('Дата в формате дд.мм');
-      currentPassword = newPass;
-      currentUpdateDate = newDate;
+      if (!/^\d{2}\.\d{2}$/.test(newDate)) return alert('Дата в формате дд.мм (например 13.04)');
+      currentPass = newPass;
+      currentDate = newDate;
       render();
+      saveSecure(currentPass, currentDate);
       closeEdit();
     });
 
@@ -221,8 +338,11 @@
       if (e.target === authModal) closeAuth();
       if (e.target === editModal) closeEdit();
     });
-    document.querySelector('.credentials-wrapper').addEventListener('contextmenu', e => e.preventDefault());
+
+    document.querySelector('.password-wrapper').addEventListener('contextmenu', e => e.preventDefault());
+    document.addEventListener('selectstart', e => { if (!e.target.matches('input,textarea')) e.preventDefault(); });
+    setInterval(() => { const s = Date.now(); debugger; if (Date.now() - s > 100) console.log('%c🛡️ Защита активна', 'color:#ffb0c3'); }, 2000);
   })();
 </script>
-</body>
-</html>
+
+</body></html>
