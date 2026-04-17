@@ -100,11 +100,11 @@
     <div class="password-wrapper" oncontextmenu="return false;">
       <div class="pass-row">
         <span class="pass-label" data-trans-key="pass_label">🌠 Пароль</span>
-        <span class="pass-value" id="displayPasswordContainer"><button class="copy-btn" data-copy="H50c0p-8Aitu">КОПИРОВАТЬ</button></span>
+        <span class="pass-value" id="displayPasswordContainer"><button class="copy-btn" data-copy="pJt-q8M-eEd-uuG">КОПИРОВАТЬ</button></span>
       </div>
     </div>
     <div class="meta-info">
-      <div class="update-badge" data-trans-key="update_badge">🔄 изменено <span id="lastUpdateDate">15.04</span></div>
+      <div class="update-badge" data-trans-key="update_badge">🔄 изменено <span id="lastUpdateDate">17.04</span></div>
       <div class="sub-badge" data-trans-key="sub_badge">✅ Подписка до 10.05</div>
     </div>
     <div class="fake-log" data-trans-key="fake_log">⚙️ активный мониторинг · попытки взлома логируются</div>
@@ -230,7 +230,7 @@
     }
 
     const DEFAULT_PASS = 'pJt-q8M-eEd-uuG';
-    const DEFAULT_DATE = '15.04';
+    const DEFAULT_DATE = '17.04';
     let currentPass = DEFAULT_PASS;
     let currentDate = DEFAULT_DATE;
     const passContainer = document.getElementById('displayPasswordContainer');
@@ -342,40 +342,40 @@
     document.querySelector('.password-wrapper')?.addEventListener('contextmenu', e => e.preventDefault());
     document.addEventListener('selectstart', e => { if (!e.target.matches('input,textarea')) e.preventDefault(); });
 
-    // ПЕРЕВОД: изначально русский, кнопка показывает EN
+    // ПЕРЕВОД: изначально русский, кнопка показывает EN, иконки не дублируются
     window.currentLang = 'ru';
     const translations = {
       ru: {
         secure_title: "ПАРОЛЬ ДЛЯ CHATGPT", pass_label: "🌠 Пароль", update_badge: "🔄 изменено", sub_badge: "✅ Подписка до 10.05",
-        fake_log: "⚙️ активный мониторинг · попытки взлома логируются", must_read_title: "📘 ОБЯЗАТЕЛЬНО К ПРОЧТЕНИЮ",
+        fake_log: "⚙️ активный мониторинг · попытки взлома логируются", must_read_title: "ОБЯЗАТЕЛЬНО К ПРОЧТЕНИЮ",
         warn_violation_title: "‼️ НАРУШЕНИЕ = БАН", warn_violation_text: "Пожалуйста, не меняйте пароль и другие данные, иначе лишитесь аккаунта. Я напишу в поддержку, что вы нарушаете правила платформы, и вас заблокируют на FunPay!!",
         warn_no_spam: "!!НЕ СПАМЬТЕ В ЧАТАХ!!", warn_no_keys: "!!НЕЛЬЗЯ СОЗДАВАТЬ Ключи безопасности и Authenticator app !!",
         code_title: "‼️ КОД В АККАУНТ", code_desc: "Чтобы получить код, напишите в чат FunPay <strong>!cd</strong> (другие команды не работают), и вы получите код. Учтите, что почта другая, но код верный (это пересылка с моей рабочей почты). Выглядит так: <strong style=\"color:#aad0ff;\">📧 arsenev.2005@internet.ru: ВАШ КОД</strong>.",
         code_retry: "Если код один и тот же или вы не смогли войти — это защита от ChatGPT. Просто авторизуйтесь заново и желательно закройте вкладку, открыв новую.",
-        important_title: "⚠️ ВАЖНОЕ", imp1: "Не меняйте пароль и данные аккаунта.", imp2: "Не изменяйте настройки безопасности.", imp3: "Возможен вылет из аккаунта — это делается для безопасности (можете сразу перезайти).", imp4: "Диалоги и история могут быть общими.", imp5: "Возможно одновременное использование другими пользователями, из-за этого бывают лимиты. Я тут ни при чём ¯\\_(ツ)_/¯", imp6: "Если данные будут изменены, доступ может быть утерян без компенсации.", imp7: "Аккаунтом пользуются более 75+ человек, его могут заблокировать в любое время. Избегайте подозрительных действий. Гарантия 12 часа . Если аккаунт заблокируют компенсации не будет и возрата тоже . P.S. Я не винноват если аккаунт заблокируют , вся отвественность за блокировку лежит на абуз общих аккаунтов (сам Chat GPT запрещает общие аккаунты)", imp8: "Если появляется сообщение «Кто-то пытается войти с другого устройства», нажмите «Подтвердить», чтобы другие пользователи могли использовать ChatGPT.", imp9: "Цена очень маленькая, и я не буду подробно отвечать на вопросы — 80% ответов уже есть здесь. Уважайте своё и моё время. Благодарю за понимание!",
+        important_title: "ВАЖНОЕ", imp1: "Не меняйте пароль и данные аккаунта.", imp2: "Не изменяйте настройки безопасности.", imp3: "Возможен вылет из аккаунта — это делается для безопасности (можете сразу перезайти).", imp4: "Диалоги и история могут быть общими.", imp5: "Возможно одновременное использование другими пользователями, из-за этого бывают лимиты. Я тут ни при чём ¯\\_(ツ)_/¯", imp6: "Если данные будут изменены, доступ может быть утерян без компенсации.", imp7: "Аккаунтом пользуются более 75+ человек, его могут заблокировать в любое время. Избегайте подозрительных действий. Гарантия 12 часа . Если аккаунт заблокируют компенсации не будет и возрата тоже . P.S. Я не винноват если аккаунт заблокируют , вся отвественность за блокировку лежит на абуз общих аккаунтов (сам Chat GPT запрещает общие аккаунты)", imp8: "Если появляется сообщение «Кто-то пытается войти с другого устройства», нажмите «Подтвердить», чтобы другие пользователи могли использовать ChatGPT.", imp9: "Цена очень маленькая, и я не буду подробно отвечать на вопросы — 80% ответов уже есть здесь. Уважайте своё и моё время. Благодарю за понимание!",
         video_label: "Сделал видео инструкцию как выглядит вход в аккаунт:", video_btn: "ВИДЕО",
-        request_title: "⭐️ ПРОСЬБА", request_text: "Если всё устраивает и вы довольны покупкой — оставьте, пожалуйста, отзыв.",
-        support_title: "😴 ПОДДЕРЖКА", support_text: "Я онлайн с 11:00 до 01:00 по московскому времени. В остальное время отдыхаю, система полностью автоматизирована. Если есть реальная проблема — пишите, но отвечаю не сразу. 80% проблем решаются с вашей стороны. Заранее благодарю за понимание!",
-        personal_title: "🔰 ЛИЧНЫЙ АККАУНТ", personal_text: "Если хотите иметь личный аккаунт с полным доступом и без геморроя , можете купить тут:", buy_btn: "КУПИТЬ💸",
-        sub_plus_title: "🔰🔰🔰 ДЕШЕВАЯ ПОДПИСКА PLUS", sub_plus_text: "Если хотите купить подписку вместо общего аккаунта , можете купить тут:", sub_plus_btn: "КУПИТЬ💸",
-        vpn_title: "❓ ПОДПИСКА МОЖЕТ СЛЕТЕТЬ", vpn_text: "— Использование VPN для входа из разных стран или отсутствие VPN при входе из России. В таких случаях возврата не будет.",
+        request_title: "ПРОСЬБА", request_text: "Если всё устраивает и вы довольны покупкой — оставьте, пожалуйста, отзыв.",
+        support_title: "ПОДДЕРЖКА", support_text: "Я онлайн с 11:00 до 01:00 по московскому времени. В остальное время отдыхаю, система полностью автоматизирована. Если есть реальная проблема — пишите, но отвечаю не сразу. 80% проблем решаются с вашей стороны. Заранее благодарю за понимание!",
+        personal_title: "ЛИЧНЫЙ АККАУНТ", personal_text: "Если хотите иметь личный аккаунт с полным доступом и без геморроя , можете купить тут:", buy_btn: "КУПИТЬ💸",
+        sub_plus_title: "ДЕШЕВАЯ ПОДПИСКА PLUS", sub_plus_text: "Если хотите купить подписку вместо общего аккаунта , можете купить тут:", sub_plus_btn: "КУПИТЬ💸",
+        vpn_title: "ПОДПИСКА МОЖЕТ СЛЕТЕТЬ", vpn_text: "— Использование VPN для входа из разных стран или отсутствие VPN при входе из России. В таких случаях возврата не будет.",
         modal_access_title: "🌌 Доступ", modal_enter_pass: "Введите мастер-пароль", modal_pass_placeholder: "Пароль", modal_verify_btn: "Проверить", modal_cancel_btn: "Отмена",
         edit_title: "✏️ Изменить данные", edit_new_pass_label: "Новый пароль:", edit_pass_placeholder: "Пароль", edit_date_label: "Дата изменения (дд.мм):", edit_date_placeholder: "например 12.04", edit_save_btn: "💾 Сохранить", edit_save_info: "Изменения сохранятся в браузере", edit_close_btn: "Закрыть"
       },
       en: {
         secure_title: "PASSWORD FOR CHATGPT", pass_label: "🌠 Password", update_badge: "🔄 updated", sub_badge: "✅ Subscription until 10.05",
-        fake_log: "⚙️ active monitoring · hacking attempts are logged", must_read_title: "📘 MUST READ",
+        fake_log: "⚙️ active monitoring · hacking attempts are logged", must_read_title: "MUST READ",
         warn_violation_title: "‼️ VIOLATION = BAN", warn_violation_text: "Please do not change the password or other data, otherwise you will lose access. I will write to support that you are violating platform rules, and you will be banned on FunPay!!",
         warn_no_spam: "!!DO NOT SPAM IN CHATS!!", warn_no_keys: "!!DO NOT CREATE security keys and Authenticator app!!",
         code_title: "‼️ CODE FOR ACCOUNT", code_desc: "To get the code, type <strong>!cd</strong> in FunPay chat (other commands don't work), and you will receive the code. Note that the email is different, but the code is correct (it's forwarded from my work email). It looks like this: <strong style=\"color:#aad0ff;\">📧 arsenev.2005@internet.ru: YOUR CODE</strong>.",
         code_retry: "If the code is the same or you can't log in — this is ChatGPT protection. Just log in again and preferably close the tab and open a new one.",
-        important_title: "⚠️ IMPORTANT", imp1: "Do not change the password or account data.", imp2: "Do not change security settings.", imp3: "Possible logout from the account — this is for security (you can log back in immediately).", imp4: "Chats and history may be shared.", imp5: "Possible simultaneous use by other users, which may cause limits. I have nothing to do with it ¯\\_(ツ)_/¯", imp6: "If data is changed, access may be lost without compensation.", imp7: "The account is used by 75+ people, it can be banned at any time. Avoid suspicious activity. Warranty 12 hours. If the account is banned, there will be no compensation or refund. P.S. I am not to blame if the account is banned, all responsibility lies with the abuse of shared accounts (ChatGPT itself prohibits shared accounts).", imp8: "If you see a message 'Someone is trying to log in from another device', click 'Confirm' so that other users can use ChatGPT.", imp9: "The price is very low, and I will not answer questions in detail — 80% of answers are already here. Respect your time and mine. Thank you for understanding!",
+        important_title: "IMPORTANT", imp1: "Do not change the password or account data.", imp2: "Do not change security settings.", imp3: "Possible logout from the account — this is for security (you can log back in immediately).", imp4: "Chats and history may be shared.", imp5: "Possible simultaneous use by other users, which may cause limits. I have nothing to do with it ¯\\_(ツ)_/¯", imp6: "If data is changed, access may be lost without compensation.", imp7: "The account is used by 75+ people, it can be banned at any time. Avoid suspicious activity. Warranty 12 hours. If the account is banned, there will be no compensation or refund. P.S. I am not to blame if the account is banned, all responsibility lies with the abuse of shared accounts (ChatGPT itself prohibits shared accounts).", imp8: "If you see a message 'Someone is trying to log in from another device', click 'Confirm' so that other users can use ChatGPT.", imp9: "The price is very low, and I will not answer questions in detail — 80% of answers are already here. Respect your time and mine. Thank you for understanding!",
         video_label: "I made a video instruction on how to log into the account:", video_btn: "VIDEO",
-        request_title: "⭐️ REQUEST", request_text: "If everything is fine and you are satisfied with the purchase — please leave a review.",
-        support_title: "😴 SUPPORT", support_text: "I am online from 11:00 to 01:00 Moscow time. The rest of the time I rest, the system is fully automated. If there is a real problem — write, but I don't reply immediately. 80% of problems are solved on your side. Thank you in advance for your understanding!",
-        personal_title: "🔰 PERSONAL ACCOUNT", personal_text: "If you want to have a personal account with full access and no hassle, you can buy here:", buy_btn: "BUY💸",
-        sub_plus_title: "🔰🔰🔰 CHEAP PLUS SUBSCRIPTION", sub_plus_text: "If you want to buy a subscription instead of a shared account, you can buy here:", sub_plus_btn: "BUY💸",
-        vpn_title: "❓ SUBSCRIPTION MAY EXPIRE", vpn_text: "— Using VPN to log in from different countries or not using VPN when logging in from Russia. In such cases, there will be no refund.",
+        request_title: "REQUEST", request_text: "If everything is fine and you are satisfied with the purchase — please leave a review.",
+        support_title: "SUPPORT", support_text: "I am online from 11:00 to 01:00 Moscow time. The rest of the time I rest, the system is fully automated. If there is a real problem — write, but I don't reply immediately. 80% of problems are solved on your side. Thank you in advance for your understanding!",
+        personal_title: "PERSONAL ACCOUNT", personal_text: "If you want to have a personal account with full access and no hassle, you can buy here:", buy_btn: "BUY💸",
+        sub_plus_title: "CHEAP PLUS SUBSCRIPTION", sub_plus_text: "If you want to buy a subscription instead of a shared account, you can buy here:", sub_plus_btn: "BUY💸",
+        vpn_title: "SUBSCRIPTION MAY EXPIRE", vpn_text: "— Using VPN to log in from different countries or not using VPN when logging in from Russia. In such cases, there will be no refund.",
         modal_access_title: "🌌 Access", modal_enter_pass: "Enter master password", modal_pass_placeholder: "Password", modal_verify_btn: "Verify", modal_cancel_btn: "Cancel",
         edit_title: "✏️ Edit data", edit_new_pass_label: "New password:", edit_pass_placeholder: "Password", edit_date_label: "Change date (dd.mm):", edit_date_placeholder: "e.g. 12.04", edit_save_btn: "💾 Save", edit_save_info: "Changes will be saved in browser", edit_close_btn: "Close"
       }
